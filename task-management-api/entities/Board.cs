@@ -7,7 +7,6 @@
         public string Description { get; set; }
         public string BackgroundPath { get; set; }
         public int WorkspaceID { get; set; }
-
         public virtual Workspace Workspace { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace task_management_api.entities
+﻿namespace task_management_api.entities
 {
     public class User
     {
@@ -12,7 +10,6 @@ namespace task_management_api.entities
         public string PasswordSalt { get; set; }
         public string PasswordHash { get; set; }
         public string? ProfilePicturePath { get; set; }
-
         public int WorkspacesId { get; set; }
 
         #region virtuals
