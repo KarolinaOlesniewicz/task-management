@@ -6,14 +6,18 @@
         public int ListId { get; set; }
         public int BoardId { get; set; }
         public string Name { get; set; }
-        public string? Description { get; set; }
+        public string Description { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public int? Position { get; set; }
+        public int Position { get; set; }
 
         public virtual List List { get; set; }
-
         public virtual Board Board { get; set; }
+        public virtual ICollection<Assignment> Assignments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Label> Labels { get; set; }
+        public virtual ICollection<Checklist> Checklists { get; set; }
+        public virtual ICollection<Observation> Observations { get; set; }
 
     }
 }
