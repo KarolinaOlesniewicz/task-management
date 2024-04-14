@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using task_management_api.entities;
-using task_management_api.models;
+using task_management_api.models.user;
+using task_management_api.models.workspace;
 
 namespace task_management_api
 {
@@ -9,6 +10,7 @@ namespace task_management_api
         public MappingProfile()
         {
             CreateMap<UserDto, User>();
+            CreateMap<Workspace, WorkspaceDisplayDto>();  
         }
     }
 }

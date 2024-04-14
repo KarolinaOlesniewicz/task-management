@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using task_management_api.entities;
 
-namespace task_management_api.models
+namespace task_management_api.models.user
 {
     public class UserDto
     {
