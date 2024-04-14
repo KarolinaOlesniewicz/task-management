@@ -29,5 +29,13 @@ namespace task_management_api.Controllers
             var result = _workspaceService.getById(userId, workspaceId);   
             return Ok(result);
         }
+
+        [HttpPost]
+        public ActionResult CreateWorkspace([FromRoute] int userId, [FromBody]CreateWorkspaceDto dto) 
+        {
+            var id = _workspaceService.CreateWorkspace(userId, dto);
+            return Created($"Workspace created with id:{id}", null);
+
+        }
     }
 }
