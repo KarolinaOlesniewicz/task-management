@@ -12,15 +12,8 @@ namespace task_management_api
         public MappingProfile()
         {
             CreateMap<UserDto, User>();
-            CreateMap<Workspace, WorkspaceDisplayDto>();
 
-            //CreateMap<CreateWorkspaceDto, Workspace>()
-            //    .ForMember(w => w.Boards, w => w.MapFrom(dto => new Board()
-            //    {
-            //        Name = dto.board.Name,
-            //        Description = dto.board.Description,
-            //        Background = dto.board.Background
-            //    }));
+            CreateMap<Workspace, WorkspaceDisplayDto>();
 
             CreateMap<CreateWorkspaceDto, Workspace>()
                 .ForMember(w => w.Name, opt => opt.MapFrom(dto => dto.Name))

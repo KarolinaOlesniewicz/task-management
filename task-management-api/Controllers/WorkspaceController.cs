@@ -37,5 +37,25 @@ namespace task_management_api.Controllers
             return Created($"Workspace created with id:{id}", null);
 
         }
+
+        [HttpDelete("{workspaceId}")]
+        public ActionResult DeleteWorkspace([FromRoute] int userId, [FromRoute] int workspaceId) 
+        { 
+            var Deleted = _workspaceService.DeleteWorkspace(userId, workspaceId);
+            if(!Deleted)
+            {
+                return NotFound("Workspace not found");
+            }
+
+            return Ok("Workspace deleted succesfully");
+        }
+
+        [HttpPut("{workspaceId}")]
+        public ActionResult EditWorkspace([FromRoute] int userId, [FromRoute] int workspaceId, [FromBody]EditWorkspaceDto dto)
+        {
+            var actionDone = _workspaceService.EditWorkspace(userId,workspaceId, dto);
+            if (!actionDone) { return NotFound("Workspace not found"); }
+            return Ok("Workspace Edited Succesfuly");
+        }
     }
 }
