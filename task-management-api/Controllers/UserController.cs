@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using task_management_api.entities;
 using task_management_api.services;
-using task_management_api.models;
+using task_management_api.models.user;
 
 namespace task_management_api.Controllers
 {
