@@ -9,8 +9,8 @@ namespace task_management_api.services
 
     public interface IUserService
     {
-        public IEnumerable<User> GetAllUsers();
-        public User GetById(int id);
+        public IEnumerable<UserDto> GetAllUsers();
+        public UserDto GetById(int id);
         public int CreateUser(UserDto dto);
         public void EditUser(int id, UserDto dto);
         public void DeleteUser(int id); 
@@ -26,21 +26,26 @@ namespace task_management_api.services
             _mapper = mapper;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<UserDto> GetAllUsers()
         {
             var users = _dbContext.users.ToList();
 
-            return users;
+            var usersDto = _mapper.Map<List<UserDto>>(users);
+
+            return usersDto;
             
         }
 
-        public User GetById(int id)
+        public UserDto GetById(int id)
         {
             var user = _dbContext.users.FirstOrDefault(x => x.Id == id);
 
-            if ( user is null) throw new NotFoundException("not Found");
+            if (user is null) throw new NotFoundException("User not Found");
 
-            return user;
+            var userDto = _mapper.Map<UserDto>(user);
+
+
+            return userDto;
         }
 
         public int CreateUser(UserDto dto)
@@ -57,9 +62,9 @@ namespace task_management_api.services
         {
             var user = _dbContext.users.FirstOrDefault(x => x.Id == id);
             
-            if (user is null) throw new NotFoundException("not Found");
+            if (user is null) throw new NotFoundException("User not Found");
 
-            user = (User)ReflectionService.Reflection(dto,user);
+            user = (User)ReflectionService.Reflect(dto,user);
 
             //var userProperties = typeof(User).GetProperties();
             //var userDtoProperties = typeof(UserDto).GetProperties();
@@ -83,7 +88,7 @@ namespace task_management_api.services
         public void DeleteUser(int id) 
         { 
             var user = _dbContext.users.FirstOrDefault(u => u.Id == id);
-            if (user is null) throw new NotFoundException("not Found");
+            if (user is null) throw new NotFoundException("User not Found");
 
 
 

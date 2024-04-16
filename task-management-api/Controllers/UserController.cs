@@ -17,14 +17,14 @@ namespace task_management_api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<User>> getAll()
+        public ActionResult<IEnumerable<UserDto>> getAll()
         {
             var users = _userService.GetAllUsers();
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> getUserById([FromRoute] int id)
+        public ActionResult<UserDto> getUserById([FromRoute] int id)
         {
             var user = _userService.GetById(id);
             return Ok(user);
@@ -54,6 +54,5 @@ namespace task_management_api.Controllers
 
             return Ok("User Deleted Succesfuly");
         }
-
     }
 }

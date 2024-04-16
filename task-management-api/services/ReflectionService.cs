@@ -1,9 +1,9 @@
-﻿namespace task_management_api
+﻿namespace task_management_api.services
 {
     public static class ReflectionService
     {
 
-        public static object Reflection(object source,object target) 
+        public static object Reflect(object source, object target)
         {
             var targetProperties = target.GetType().GetProperties();
 
@@ -22,7 +22,7 @@
                     {
                         targetProperty.SetValue(target, sourceValue);
                     }
-                }            
+                }
             }
             return target;
         }
