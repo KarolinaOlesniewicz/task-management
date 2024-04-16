@@ -12,7 +12,7 @@ namespace task_management_api
         public MappingProfile()
         {
             CreateMap<UserDto, User>();
-
+            CreateMap<User,UserDto>();
             CreateMap<Workspace, WorkspaceDisplayDto>();
 
             CreateMap<CreateWorkspaceDto, Workspace>()

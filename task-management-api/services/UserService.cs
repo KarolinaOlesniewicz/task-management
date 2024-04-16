@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using task_management_api.entities;
+using task_management_api.exceptions;
 using task_management_api.models.user;
 
 namespace task_management_api.services
@@ -8,11 +9,11 @@ namespace task_management_api.services
 
     public interface IUserService
     {
-        public IEnumerable<User> GetAllUsers();
-        public User GetById(int id);
+        public IEnumerable<UserDto> GetAllUsers();
+        public UserDto GetById(int id);
         public int CreateUser(UserDto dto);
-        public bool EditUser(int id, UserDto dto);
-        public bool DeleteUser(int id); 
+        public void EditUser(int id, UserDto dto);
+        public void DeleteUser(int id); 
     }
 
     public class UserService : IUserService
@@ -25,19 +26,26 @@ namespace task_management_api.services
             _mapper = mapper;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<UserDto> GetAllUsers()
         {
             var users = _dbContext.users.ToList();
 
-            return users;
+            var usersDto = _mapper.Map<List<UserDto>>(users);
+
+            return usersDto;
             
         }
 
-        public User GetById(int id)
+        public UserDto GetById(int id)
         {
             var user = _dbContext.users.FirstOrDefault(x => x.Id == id);
 
-            return user;
+            if (user is null) throw new NotFoundException("User not Found");
+
+            var userDto = _mapper.Map<UserDto>(user);
+
+
+            return userDto;
         }
 
         public int CreateUser(UserDto dto)
@@ -50,46 +58,42 @@ namespace task_management_api.services
             return user.Id;
         }
 
-        public bool EditUser(int id, UserDto dto)
+        public void EditUser(int id, UserDto dto)
         {
             var user = _dbContext.users.FirstOrDefault(x => x.Id == id);
             
-            if (user is null)
-            {
-                return false;
-            }
+            if (user is null) throw new NotFoundException("User not Found");
 
-            var userProperties = typeof(User).GetProperties();
-            var userDtoProperties = typeof(UserDto).GetProperties();
+            user = (User)ReflectionService.Reflect(dto,user);
 
-            foreach (var dtoProperty in userDtoProperties)
-            {
-                var userProperty = userProperties.FirstOrDefault(p => p.Name == dtoProperty.Name);
+            //var userProperties = typeof(User).GetProperties();
+            //var userDtoProperties = typeof(UserDto).GetProperties();
 
-                var userValue = userProperty.GetValue(user);
-                var dtoValue = dtoProperty.GetValue(dto);
+            //foreach (var dtoProperty in userDtoProperties)
+            //{
+            //    var userProperty = userProperties.FirstOrDefault(p => p.Name == dtoProperty.Name);
 
-                if(userValue != dtoProperty)
-                {
-                    userProperty.SetValue(user,dtoValue);
-                }
+            //    var userValue = userProperty.GetValue(user);
+            //    var dtoValue = dtoProperty.GetValue(dto);
 
-            }
+            //    if(userValue != dtoProperty)
+            //    {
+            //        userProperty.SetValue(user,dtoValue);
+            //    }
+
+            //}
             _dbContext.SaveChanges();
-            return true;
         }
 
-        public bool DeleteUser(int id) 
+        public void DeleteUser(int id) 
         { 
             var user = _dbContext.users.FirstOrDefault(u => u.Id == id);
-            if (user is null)
-            {
-                return false;
-            }
+            if (user is null) throw new NotFoundException("User not Found");
+
+
 
             _dbContext.Remove(user);
             _dbContext.SaveChanges();
-            return true;
         }
     }
 }

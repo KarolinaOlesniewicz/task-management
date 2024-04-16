@@ -23,8 +23,4 @@
     <ProjectReference Include="..\task-management-wpf\task-management-wpf.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="middleware\" />
-  </ItemGroup>
-
 </Project>
