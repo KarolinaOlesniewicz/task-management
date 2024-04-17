@@ -15,8 +15,7 @@ namespace task_management_api.Controllers
         {
             _workspaceService = workspaceService;
         }
-        #region only workspace realated http methods
-
+        #region http methods
         [HttpGet]
         public ActionResult<IEnumerable<WorkspaceDisplayDto>> getAllByUserId([FromRoute]int userId)
         {
@@ -54,17 +53,5 @@ namespace task_management_api.Controllers
             return Ok("Workspace Edited Succesfuly");
         }
         #endregion
-
-        [HttpGet("{workspaceId}/{workspaceMemberId}")]
-        public ActionResult<WorkspaceMember> getWorkspaceMember([FromRoute] int userId, [FromRoute] int workspaceId) 
-        {
-            return Ok();
-        }
-
-        [HttpGet("{workspaceId}/members")]
-        public ActionResult<WorkspaceMember> getAllWorkspaceMembers([FromRoute] int userId, [FromRoute] int workspaceId)
-        {
-            return Ok();
-        }
     }
 }
