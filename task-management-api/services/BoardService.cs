@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using task_management_api.entities;
+using task_management_api.exceptions;
 using task_management_api.models.board;
+using Task = System.Threading.Tasks.Task;
 
 namespace task_management_api.services
 {
@@ -9,9 +11,9 @@ namespace task_management_api.services
     {
         Task<IEnumerable<Board>> getBoards(int userID, int workspaceID);
         Task<Board> getBoard(int boardID);
-        Task<string> addBoard(Board incomingBoard);
-        Task<string> editBoard(int boardID, Board editedBoard);
-        Task<string> deleteBoard(int boardID);
+        Task<int> addBoard(Board incomingBoard);
+        Task editBoard(int boardID, Board editedBoard);
+        Task deleteBoard(int boardID);
     }
 
     public class BoardService : IBoardService
@@ -45,87 +47,58 @@ namespace task_management_api.services
 
         public async Task<Board> getBoard(int boardID)
         {
-          var board = await _dbContext.boards
-                .Include(board => board.Name)
-                .Include(board => board.Description)
-                .Include(board => board.Background)
-                .Where(board => board.Id == boardID)
-                .FirstOrDefaultAsync();
+            var board = await _dbContext.boards
+                  .Include(board => board.Name)
+                  .Include(board => board.Description)
+                  .Include(board => board.Background)
+                  .Where(board => board.Id == boardID)
+                  .FirstOrDefaultAsync();
 
             return board;
         }
 
-        public async Task<string> addBoard(Board incomingBoard)
+        public async Task<int> addBoard(Board incomingBoard)
         {
-            try
+
+            if (incomingBoard == null) { throw new NotFoundException("Invalid input data"); }
+
+            var newBoard = new Board()
             {
-                if (incomingBoard != null)
-                {
-                    var newBoard = new Board()
-                    {
-                        Name = incomingBoard.Name,
-                        Description = incomingBoard.Description,
-                        Background = incomingBoard.Background
-                        // ...
-                    };
+                Name = incomingBoard.Name,
+                Description = incomingBoard.Description,
+                Background = incomingBoard.Background
+                // ...
+            };
 
-                    await _dbContext.boards.AddAsync(newBoard);
-                    await _dbContext.SaveChangesAsync();
+            await _dbContext.boards.AddAsync(newBoard);
+            await _dbContext.SaveChangesAsync();
 
-                    return "board added";
-                }
-                else
-                    return "invalid input data";
-            }
-            catch(Exception ex)
-            {
-                return ex.Message;
-            }
-
+            return newBoard.Id;
         }
 
-        public async Task<string> editBoard(int boardID, Board editedBoard)
+        public async Task editBoard(int boardID, Board editedBoard)
         {
-            try
-            {
-                var boardToEdit = await _dbContext.boards.FirstAsync(board => board.Id == boardID);
-                
-                if (boardToEdit != null && editedBoard != null)
-                {
-                    boardToEdit.Name = editedBoard.Name;
-                    boardToEdit.Description = editedBoard.Description;
-                    boardToEdit.Background = editedBoard.Background;
 
-                    return "board edited";
-                }
-                else
-                    return "board not found";
-            }
-            catch(Exception ex)
-            {
-                return ex.Message;
-            }
+            var boardToEdit = await _dbContext.boards.FirstAsync(board => board.Id == boardID);
+
+            if (boardToEdit == null && editedBoard == null) { throw new NotFoundException("Board not Found"); }
+
+            boardToEdit.Name = editedBoard.Name;
+            boardToEdit.Description = editedBoard.Description;
+            boardToEdit.Background = editedBoard.Background;
         }
 
-        public async Task<string> deleteBoard(int boardID)
+        public async Task deleteBoard(int boardID)
         {
-            try
-            {
-                var boardToDelete = await _dbContext.boards.FirstAsync(board => board.Id == boardID);
 
-                if (boardToDelete != null)
-                {
-                    _dbContext.boards.Remove(boardToDelete);
-                    await _dbContext.SaveChangesAsync();
-                    return "board deleted";
-                }
-                else
-                    return "board not found";
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
+            var boardToDelete = await _dbContext.boards.FirstAsync(board => board.Id == boardID);
+
+            if (boardToDelete == null) { throw new NotFoundException("Board not Found"); }
+
+            _dbContext.boards.Remove(boardToDelete);
+            await _dbContext.SaveChangesAsync();
+
+
         }
     }
 }
