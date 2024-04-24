@@ -26,6 +26,7 @@ namespace task_management_api.services
             _dbContext = dbContext;
             _mapper = mapper;
         }
+
         public async Task<IEnumerable<Board>> getBoards(int userID, int workspaceID)
         {
             //SELECT *
@@ -48,9 +49,6 @@ namespace task_management_api.services
         public async Task<Board> getBoard(int boardID)
         {
             var board = await _dbContext.boards
-                  .Include(board => board.Name)
-                  .Include(board => board.Description)
-                  .Include(board => board.Background)
                   .Where(board => board.Id == boardID)
                   .FirstOrDefaultAsync();
 
@@ -66,9 +64,11 @@ namespace task_management_api.services
             {
                 Name = incomingBoard.Name,
                 Description = incomingBoard.Description,
-                Background = incomingBoard.Background
+                Background = incomingBoard.Background,
                 // ...
+                //Workspace = _dbContext.workspaces.Where(work => work.Id == incomingBoard.WorkspaceId).FirstOrDefault()
             };
+
 
             await _dbContext.boards.AddAsync(newBoard);
             await _dbContext.SaveChangesAsync();
@@ -86,6 +86,9 @@ namespace task_management_api.services
             boardToEdit.Name = editedBoard.Name;
             boardToEdit.Description = editedBoard.Description;
             boardToEdit.Background = editedBoard.Background;
+
+            _dbContext.Update(boardToEdit);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task deleteBoard(int boardID)
@@ -97,8 +100,6 @@ namespace task_management_api.services
 
             _dbContext.boards.Remove(boardToDelete);
             await _dbContext.SaveChangesAsync();
-
-
         }
     }
 }
