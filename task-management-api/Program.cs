@@ -15,6 +15,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDbContext<TaskManagementDbContext>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
+builder.Services.AddScoped<IListService, ListService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 

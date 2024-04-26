@@ -14,6 +14,7 @@ namespace task_management_api
             CreateMap<UserDto, User>();
             CreateMap<User,UserDto>();
             CreateMap<Workspace, WorkspaceDisplayDto>();
+            CreateMap<List, ListDto>();
 
             CreateMap<CreateWorkspaceDto, Workspace>()
                 .ForMember(w => w.Name, opt => opt.MapFrom(dto => dto.Name))
