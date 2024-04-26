@@ -35,12 +35,31 @@ namespace task_management_api.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> AddListForBoard([FromBody]CreateListDto dto,[FromRoute]int boardId)
+        public async Task<IActionResult> AddListForBoard([FromBody] CreateListDto dto, [FromRoute] int boardId)
         {
-            await _listService.AddListForBoard(dto,boardId);
+            await _listService.AddListForBoard(dto, boardId);
             return NoContent();
         }
 
+        [HttpPut("{listId}")]
+        public async Task<IActionResult> MoveListOnBoard([FromRoute]int boardId, [FromRoute]int listId,int newPosition)
+        {
+            await _listService.MoveList(boardId, listId, newPosition);
+            return Ok();
+        }
 
+        [HttpDelete("{listId}")]
+        public async Task<IActionResult> DeleteList([FromRoute] int boardId, [FromRoute] int listId)
+        {
+            await _listService.DeleteList(boardId,listId);
+            return Ok("List Deleted Succesfully");
+        }
+
+        [HttpPut("{listId}/{name}")]
+        public async Task<IActionResult> ChangeListName([FromRoute] int boardId, [FromRoute] int listId,[FromRoute]string name)
+        {
+            await _listService.ChangeListName(boardId, listId, name);
+            return NoContent();
+        }
     }
 }
