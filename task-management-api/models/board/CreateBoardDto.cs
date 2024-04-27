@@ -8,7 +8,6 @@ namespace task_management_api.models.board
         public string Name { get; set; }
         public string Description { get; set; }
         public string Background { get; set; }
-        public ICollection<CreateListDto> Lists { get; set; }    
-
+        public ICollection<CreateListDto> Lists { get; set; }
     }
 }

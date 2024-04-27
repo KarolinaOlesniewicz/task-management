@@ -33,9 +33,9 @@ namespace task_management_api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBoard([FromBody] Board incomingBoard)
+        public async Task<IActionResult> AddBoard([FromBody] CreateBoardDto incomingBoard, [FromRoute] int userID, [FromRoute] int workspaceID)
         {
-            var board = await _boardService.addBoard(incomingBoard);
+            var board = await _boardService.addBoard(incomingBoard, workspaceID, userID);
             return Ok(board);
             //return Created($"Workspace created with id:{id}", null);
         }

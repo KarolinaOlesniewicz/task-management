@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using task_management_api.entities;
 using task_management_api.exceptions;
 using task_management_api.models.board;
+using task_management_api.models.list;
 using Task = System.Threading.Tasks.Task;
 
 namespace task_management_api.services
@@ -11,7 +12,7 @@ namespace task_management_api.services
     {
         Task<IEnumerable<Board>> getBoards(int userID, int workspaceID);
         Task<Board> getBoard(int boardID);
-        Task<int> addBoard(Board incomingBoard);
+        Task<int> addBoard(CreateBoardDto incomingBoard, int workspaceID, int userID);
         Task editBoard(int boardID, Board editedBoard);
         Task deleteBoard(int boardID);
     }
@@ -35,13 +36,10 @@ namespace task_management_api.services
             //WHERE BM.UserId = ? AND B.WorkspaceId = ?
 
             var boards = await _dbContext.boards
-                       .Join(_dbContext.boardMembers,
-                           board => board.Id,
-                           boardMember => boardMember.BoardId,
-                           (board, boardMember) => new { Board = board, BoardMember = boardMember })
-                       .Where(bb => bb.BoardMember.UserId == userID && bb.Board.WorkspaceId == workspaceID)
-                       .Select(bb => bb.Board)
-                       .ToListAsync();
+                        .Include(b => b.BoardMembers) // Załaduj powiązane boardMembers
+                        .Where(b => b.BoardMembers.Any(bm => bm.UserId == userID) && b.WorkspaceId == workspaceID)
+                        .ToListAsync();
+
 
             return boards;
         }
@@ -55,18 +53,35 @@ namespace task_management_api.services
             return board;
         }
 
-        public async Task<int> addBoard(Board incomingBoard)
+        public async Task<int> addBoard(CreateBoardDto incomingBoard, int workspaceID, int userID)
         {
-
-            if (incomingBoard == null) { throw new NotFoundException("Invalid input data"); }
+            var listDtos = new List<CreateListDto>
+            {
+                 new CreateListDto()
+                {
+                    Name = "To Do",
+                    Position = 1
+                },
+                new CreateListDto()
+                {
+                    Name = "In Progress",
+                    Position = 2
+                },
+                new CreateListDto()
+                {
+                    Name = "Done",
+                    Position = 3
+                }
+            };
 
             var newBoard = new Board()
             {
                 Name = incomingBoard.Name,
                 Description = incomingBoard.Description,
                 Background = incomingBoard.Background,
-                // ...
-                //Workspace = _dbContext.workspaces.Where(work => work.Id == incomingBoard.WorkspaceId).FirstOrDefault()
+                WorkspaceId = workspaceID,
+                Lists = (ICollection<List>)listDtos,
+                Workspace = _dbContext.workspaces.Where(work => work.Id == workspaceID).FirstOrDefault()
             };
 
 
