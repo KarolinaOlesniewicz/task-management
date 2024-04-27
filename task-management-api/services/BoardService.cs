@@ -74,18 +74,33 @@ namespace task_management_api.services
                 }
             };
 
+            var targetWorkspace = await _dbContext.workspaces.Include(w => w.Boards)
+                .FirstOrDefaultAsync(w => w.Id == workspaceID);
+
+            if (targetWorkspace is null) throw new NotFoundException("workspace not found");
+
             var newBoard = new Board()
             {
                 Name = incomingBoard.Name,
                 Description = incomingBoard.Description,
                 Background = incomingBoard.Background,
-                WorkspaceId = workspaceID,
-                Lists = (ICollection<List>)listDtos,
-                Workspace = _dbContext.workspaces.Where(work => work.Id == workspaceID).FirstOrDefault()
+                WorkspaceId = workspaceID,              
+                //Workspace = _dbContext.workspaces.Where(work => work.Id == workspaceID).FirstOrDefault()
             };
 
+            newBoard.Lists = _mapper.Map<List<List>>(listDtos);
 
-            await _dbContext.boards.AddAsync(newBoard);
+            //if(targetWorkspace.Boards is null) {
+            //    targetWorkspace.Boards.
+            //}
+            //else
+            //{
+            //    targetWorkspace.Boards.Add(newBoard); 
+            //}
+
+            targetWorkspace.Boards.Add(newBoard);
+
+            //await _dbContext.boards.AddAsync(newBoard);
             await _dbContext.SaveChangesAsync();
 
             return newBoard.Id;

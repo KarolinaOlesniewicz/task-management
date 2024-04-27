@@ -8,7 +8,7 @@ namespace task_management_api.Controllers
 {
     [ApiController]
     [Route("api/u/{userId}/w/{workspaceId}")]
-    public class BoardController : Controller
+    public class BoardController : ControllerBase
     {
         private readonly IBoardService _boardService;
 
@@ -33,9 +33,9 @@ namespace task_management_api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBoard([FromBody] CreateBoardDto incomingBoard, [FromRoute] int userID, [FromRoute] int workspaceID)
+        public async Task<IActionResult> AddBoard([FromBody] CreateBoardDto incomingBoard, [FromRoute] int userId, [FromRoute] int workspaceId)
         {
-            var board = await _boardService.addBoard(incomingBoard, workspaceID, userID);
+            var board = await _boardService.addBoard(incomingBoard, workspaceId, userId);
             return Ok(board);
             //return Created($"Workspace created with id:{id}", null);
         }
@@ -49,9 +49,9 @@ namespace task_management_api.Controllers
         }
 
         [HttpDelete("{boardId}")]
-        public async Task<IActionResult> DeleteBoard([FromRoute] int id)
+        public async Task<IActionResult> DeleteBoard([FromRoute] int boardId)
         {
-            await _boardService.deleteBoard(id);
+            await _boardService.deleteBoard(boardId);
             return Ok("Board deleted succesfully");
         }
     }
