@@ -18,17 +18,17 @@ namespace task_management_api.Controllers
         }
 
         [HttpGet("/boards")]
-        public async Task<IActionResult> GetBoards([FromRoute] int userID, [FromRoute] int workspaceID)
+        public async Task<IActionResult> GetBoards([FromRoute] int userId, [FromRoute] int workspaceId)
         {
-            var boards = await _boardService.getBoards(userID, workspaceID);
+            var boards = await _boardService.getBoards(userId, workspaceId);
             return Ok(boards);
         }
 
         [HttpGet]
         [Route("{boardId}")]
-        public async Task<IActionResult> GetBoard([FromRoute] int id)
+        public async Task<IActionResult> GetBoard([FromRoute] int boardId)
         {
-            var board = await _boardService.getBoard(id);
+            var board = await _boardService.getBoard(boardId);
             return Ok(board);
         }
 
@@ -41,9 +41,9 @@ namespace task_management_api.Controllers
         }
 
         [HttpPut("{boardId}")]
-        public async Task<IActionResult> EditBoard([FromRoute] int id, Board editedBoard)
+        public async Task<IActionResult> EditBoard([FromRoute] int boardId, Board editedBoard)
         {
-            await _boardService.editBoard(id, editedBoard);
+            await _boardService.editBoard(boardId, editedBoard);
 
             return Ok("Board edited succesfully");
         }

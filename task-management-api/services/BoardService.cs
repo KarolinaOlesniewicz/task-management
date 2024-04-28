@@ -28,7 +28,7 @@ namespace task_management_api.services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Board>> getBoards(int userID, int workspaceID)
+        public async Task<IEnumerable<Board>> getBoards(int userId, int workspaceId)
         {
             //SELECT *
             //FROM boards as B
@@ -36,24 +36,24 @@ namespace task_management_api.services
             //WHERE BM.UserId = ? AND B.WorkspaceId = ?
 
             var boards = await _dbContext.boards
-                        .Include(b => b.BoardMembers) // Załaduj powiązane boardMembers
-                        .Where(b => b.BoardMembers.Any(bm => bm.UserId == userID) && b.WorkspaceId == workspaceID)
-                        .ToListAsync();
+                .Where(b => b.BoardMembers.Any(bm => bm.UserId == userId) && b.WorkspaceId == workspaceId)
+                .ToListAsync();
+
 
 
             return boards;
         }
 
-        public async Task<Board> getBoard(int boardID)
+        public async Task<Board> getBoard(int boardId)
         {
             var board = await _dbContext.boards
-                  .Where(board => board.Id == boardID)
+                  .Where(board => board.Id == boardId)
                   .FirstOrDefaultAsync();
 
             return board;
         }
 
-        public async Task<int> addBoard(CreateBoardDto incomingBoard, int workspaceID, int userID)
+        public async Task<int> addBoard(CreateBoardDto incomingBoard, int workspaceId, int userId)
         {
             var listDtos = new List<CreateListDto>
             {
@@ -75,7 +75,7 @@ namespace task_management_api.services
             };
 
             var targetWorkspace = await _dbContext.workspaces.Include(w => w.Boards)
-                .FirstOrDefaultAsync(w => w.Id == workspaceID);
+                .FirstOrDefaultAsync(w => w.Id == workspaceId);
 
             if (targetWorkspace is null) throw new NotFoundException("workspace not found");
 
@@ -84,8 +84,8 @@ namespace task_management_api.services
                 Name = incomingBoard.Name,
                 Description = incomingBoard.Description,
                 Background = incomingBoard.Background,
-                WorkspaceId = workspaceID,              
-                //Workspace = _dbContext.workspaces.Where(work => work.Id == workspaceID).FirstOrDefault()
+                WorkspaceId = workspaceId,
+                //Workspace = _dbContext.workspaces.Where(work => work.Id == workspaceId).FirstOrDefault()
             };
 
             newBoard.Lists = _mapper.Map<List<List>>(listDtos);
@@ -106,10 +106,10 @@ namespace task_management_api.services
             return newBoard.Id;
         }
 
-        public async Task editBoard(int boardID, Board editedBoard)
+        public async Task editBoard(int boardId, Board editedBoard)
         {
 
-            var boardToEdit = await _dbContext.boards.FirstAsync(board => board.Id == boardID);
+            var boardToEdit = await _dbContext.boards.FirstAsync(board => board.Id == boardId);
 
             if (boardToEdit == null && editedBoard == null) { throw new NotFoundException("Board not Found"); }
 
@@ -121,10 +121,10 @@ namespace task_management_api.services
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task deleteBoard(int boardID)
+        public async Task deleteBoard(int boardId)
         {
 
-            var boardToDelete = await _dbContext.boards.FirstAsync(board => board.Id == boardID);
+            var boardToDelete = await _dbContext.boards.FirstAsync(board => board.Id == boardId);
 
             if (boardToDelete == null) { throw new NotFoundException("Board not Found"); }
 
