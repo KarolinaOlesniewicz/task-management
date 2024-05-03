@@ -65,23 +65,7 @@ namespace task_management_api.services
             if (user is null) throw new NotFoundException("User not Found");
 
             user = (User)ReflectionService.Reflect(dto,user);
-
-            //var userProperties = typeof(User).GetProperties();
-            //var userDtoProperties = typeof(UserDto).GetProperties();
-
-            //foreach (var dtoProperty in userDtoProperties)
-            //{
-            //    var userProperty = userProperties.FirstOrDefault(p => p.Name == dtoProperty.Name);
-
-            //    var userValue = userProperty.GetValue(user);
-            //    var dtoValue = dtoProperty.GetValue(dto);
-
-            //    if(userValue != dtoProperty)
-            //    {
-            //        userProperty.SetValue(user,dtoValue);
-            //    }
-
-            //}
+         
             _dbContext.SaveChanges();
         }
 
