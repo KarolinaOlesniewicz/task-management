@@ -10,11 +10,11 @@ namespace task_management_api.services
 {
     public interface IBoardService
     {
-        Task<IEnumerable<Board>> getBoards(int userID, int workspaceID);
-        Task<Board> getBoard(int boardID);
-        Task<int> addBoard(CreateBoardDto incomingBoard, int workspaceID, int userID);
-        Task editBoard(int boardID, Board editedBoard);
-        Task deleteBoard(int boardID);
+        Task<IEnumerable<Board>> getBoards(int userId, int workspaceId);
+        Task<Board> getBoard(int boardId);
+        Task<int> addBoard(CreateBoardDto incomingBoard, int workspaceId, int userId);
+        Task editBoard(int boardId, Board editedBoard);
+        Task deleteBoard(int boardId);
     }
 
     public class BoardService : IBoardService
@@ -35,11 +35,23 @@ namespace task_management_api.services
             //INNER JOIN boardmembers AS BM ON B.Id = BM.BoardId
             //WHERE BM.UserId = ? AND B.WorkspaceId = ?
 
+            //var boards = await _dbContext.boards
+            //    .Join(_dbContext.boardMembers,
+            //    b => b.Id,
+            //    bm => bm.BoardId,
+            //    (b, bm) => new { Board = b, BoardMember = bm })
+            //    .Where(joinResult => joinResult.BoardMember.UserId == userId && joinResult.Board.WorkspaceId == workspaceId)
+            //    .Select(joinResult => joinResult.Board)
+            //.ToListAsync();
+
+            //var boards = await _dbContext.boards
+            //    .Include(b => b.BoardMembers) // Dołącz tablice członków
+            //     .Where(b => b.BoardMembers.Any(bm => bm.UserId == userId && bm.BoardId == b.Id) && b.WorkspaceId == workspaceId)
+            //     .ToListAsync();
+
             var boards = await _dbContext.boards
                 .Where(b => b.BoardMembers.Any(bm => bm.UserId == userId) && b.WorkspaceId == workspaceId)
                 .ToListAsync();
-
-
 
             return boards;
         }
