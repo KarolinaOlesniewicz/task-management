@@ -15,6 +15,7 @@ namespace task_management_api.Controllers
         {
             _workspaceService = workspaceService;
         }
+        #region only workspace realated http methods
 
         [HttpGet]
         public ActionResult<IEnumerable<WorkspaceDisplayDto>> getAllByUserId([FromRoute]int userId)
@@ -41,21 +42,29 @@ namespace task_management_api.Controllers
         [HttpDelete("{workspaceId}")]
         public ActionResult DeleteWorkspace([FromRoute] int userId, [FromRoute] int workspaceId) 
         { 
-            var Deleted = _workspaceService.DeleteWorkspace(userId, workspaceId);
-            if(!Deleted)
-            {
-                return NotFound("Workspace not found");
-            }
-
+            _workspaceService.DeleteWorkspace(userId, workspaceId);
+            
             return Ok("Workspace deleted succesfully");
         }
 
         [HttpPut("{workspaceId}")]
         public ActionResult EditWorkspace([FromRoute] int userId, [FromRoute] int workspaceId, [FromBody]EditWorkspaceDto dto)
         {
-            var actionDone = _workspaceService.EditWorkspace(userId,workspaceId, dto);
-            if (!actionDone) { return NotFound("Workspace not found"); }
+            _workspaceService.EditWorkspace(userId,workspaceId, dto);
             return Ok("Workspace Edited Succesfuly");
+        }
+        #endregion
+
+        [HttpGet("{workspaceId}/{workspaceMemberId}")]
+        public ActionResult<WorkspaceMember> getWorkspaceMember([FromRoute] int userId, [FromRoute] int workspaceId) 
+        {
+            return Ok();
+        }
+
+        [HttpGet("{workspaceId}/members")]
+        public ActionResult<WorkspaceMember> getAllWorkspaceMembers([FromRoute] int userId, [FromRoute] int workspaceId)
+        {
+            return Ok();
         }
     }
 }

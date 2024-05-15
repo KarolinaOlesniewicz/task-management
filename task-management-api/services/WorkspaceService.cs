@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using task_management_api.entities;
+using task_management_api.exceptions;
 using task_management_api.models.board;
 using task_management_api.models.list;
 using task_management_api.models.user;
@@ -12,8 +13,8 @@ namespace task_management_api.services
         public IEnumerable<WorkspaceDisplayDto> GetAllByUserId(int userId);
         public WorkspaceDisplayDto getById(int userId, int workspaceId);
         public int CreateWorkspace(int userId,CreateWorkspaceDto workspace);
-        public bool DeleteWorkspace(int userId,int workspaceId);
-        public bool EditWorkspace(int userId, int workspaceId, EditWorkspaceDto dto);
+        public void DeleteWorkspace(int userId,int workspaceId);
+        public void EditWorkspace(int userId, int workspaceId, EditWorkspaceDto dto);
     }
 
     public class WorkspaceService : IWorkspaceService
@@ -36,6 +37,10 @@ namespace task_management_api.services
         public WorkspaceDisplayDto getById(int userId,int workspaceId)
         {
             var workspace = _dbContext.workspaces.FirstOrDefault(x => x.OwnerId == userId && x.Id == workspaceId);
+            if (workspace is null)
+            {
+                throw new NotFoundException("Workspace not Found");
+            }
             var workspaceDto = _mapper.Map<WorkspaceDisplayDto>(workspace);
             return workspaceDto;
         }
@@ -71,42 +76,46 @@ namespace task_management_api.services
             return workspace.Id;
         }
 
-        public bool DeleteWorkspace(int userId, int workspaceId)
+        public void DeleteWorkspace(int userId, int workspaceId)
         {
             var workspace = _dbContext.workspaces
                             .FirstOrDefault(w => w.Id == workspaceId && w.OwnerId == userId);
             if (workspace is null)
             {
-                return false;
+                throw new NotFoundException("Workspace not Found");
             }
+
 
             _dbContext.workspaces.Remove(workspace);
             _dbContext.SaveChanges();
-            return true;
         }
 
-        public bool EditWorkspace(int userId,int workspaceId,EditWorkspaceDto dto)
+        public void EditWorkspace(int userId,int workspaceId,EditWorkspaceDto dto)
         {
-            var workspace = _dbContext.workspaces.FirstOrDefault(w => w.Id ==workspaceId && w.OwnerId == userId); 
-            if (workspace is null) { return false; }
+            var workspace = _dbContext.workspaces.FirstOrDefault(w => w.Id ==workspaceId && w.OwnerId == userId);
 
-            var workspaceProperties = typeof(Workspace).GetProperties();
-            var workspaceDtoProperties = typeof(EditWorkspaceDto).GetProperties();
+            if (workspace is null) { throw new NotFoundException("Workspace not Found"); }
 
-            foreach (var dtoProperty in workspaceDtoProperties)
-            {
-                var workspaceProperty = workspaceProperties.FirstOrDefault(p => p.Name == dtoProperty.Name);
+            workspace = (Workspace)ReflectionService.Reflect(dto, workspace);
 
-                var userValue = workspaceProperty.GetValue(workspace);
-                var dtoValue = dtoProperty.GetValue(dto);
+            //if (workspace is null) { return false; }
 
-                if (userValue != dtoProperty)
-                {
-                    workspaceProperty.SetValue(workspace, dtoValue);
-                }
-            }
+            //var workspaceProperties = typeof(Workspace).GetProperties();
+            //var workspaceDtoProperties = typeof(EditWorkspaceDto).GetProperties();
+
+            //foreach (var dtoProperty in workspaceDtoProperties)
+            //{
+            //    var workspaceProperty = workspaceProperties.FirstOrDefault(p => p.Name == dtoProperty.Name);
+
+            //    var userValue = workspaceProperty.GetValue(workspace);
+            //    var dtoValue = dtoProperty.GetValue(dto);
+
+            //    if (userValue != dtoProperty)
+            //    {
+            //        workspaceProperty.SetValue(workspace, dtoValue);
+            //    }
+            //}
             _dbContext.SaveChanges();
-            return true;
         }
     }
 }
