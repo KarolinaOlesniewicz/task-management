@@ -16,6 +16,13 @@ namespace task_management_api.Controllers
             _userService = userService;
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult> userlogin([FromBody] UserLogInDto user)
+        {
+            await _userService.LogIn(user);
+            return Ok("Succesfull Login");
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<UserDto>> getAll()
         {
@@ -30,7 +37,7 @@ namespace task_management_api.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public ActionResult createUser([FromBody] UserDto dto)
         {
             var id = _userService.CreateUser(dto);
