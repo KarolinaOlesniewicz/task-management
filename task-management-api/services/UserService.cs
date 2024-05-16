@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using task_management_api.entities;
 using task_management_api.exceptions;
@@ -13,17 +15,21 @@ namespace task_management_api.services
         public UserDto GetById(int id);
         public int CreateUser(UserDto dto);
         public void EditUser(int id, UserDto dto);
-        public void DeleteUser(int id); 
+        public void DeleteUser(int id);
+
+        public System.Threading.Tasks.Task LogIn(UserLogInDto dto);
     }
 
     public class UserService : IUserService
     {
         private readonly TaskManagementDbContext _dbContext;
         private readonly IMapper _mapper;
-        public UserService(TaskManagementDbContext dbContext,IMapper mapper)
+        private readonly IPasswordHasher<User> _hasher;
+        public UserService(TaskManagementDbContext dbContext,IMapper mapper, IPasswordHasher<User> hasher)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _hasher = hasher;
         }
 
         public IEnumerable<UserDto> GetAllUsers()
@@ -52,10 +58,35 @@ namespace task_management_api.services
         {
             var user = _mapper.Map<User>(dto);
 
+            var usernamecheck = _dbContext.users.FirstOrDefault(Check => Check.Username == dto.Username);
+            if(usernamecheck is not null)
+            {
+                throw new BadRequestException("User with that username already exist");
+            }
+
+            var emailCheck = _dbContext.users.FirstOrDefault(Check => Check.Email == dto.Email);
+            if (emailCheck is not null)
+            {
+                throw new BadRequestException("User with that email already exist");
+
+            }
+
+            user.PasswordHash = _hasher.HashPassword(user,user.PasswordHash);
+
             _dbContext.users.Add(user);
             _dbContext.SaveChanges();
 
             return user.Id;
+        }
+
+        public async System.Threading.Tasks.Task LogIn(UserLogInDto dto)
+        {
+            var user = _dbContext.users.FirstOrDefault(user => user.Username == dto.Username);
+
+            if (user is null) { throw new BadRequestException("User with that username do not exist"); }
+            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
+
+            if (result == PasswordVerificationResult.Failed) { throw new BadRequestException("Wrong password"); }
         }
 
         public void EditUser(int id, UserDto dto)
@@ -64,24 +95,7 @@ namespace task_management_api.services
             
             if (user is null) throw new NotFoundException("User not Found");
 
-            user = (User)ReflectionService.Reflect(dto,user);
-
-            //var userProperties = typeof(User).GetProperties();
-            //var userDtoProperties = typeof(UserDto).GetProperties();
-
-            //foreach (var dtoProperty in userDtoProperties)
-            //{
-            //    var userProperty = userProperties.FirstOrDefault(p => p.Name == dtoProperty.Name);
-
-            //    var userValue = userProperty.GetValue(user);
-            //    var dtoValue = dtoProperty.GetValue(dto);
-
-            //    if(userValue != dtoProperty)
-            //    {
-            //        userProperty.SetValue(user,dtoValue);
-            //    }
-
-            //}
+            user = (User)ReflectionService.Reflect(dto,user);          
             _dbContext.SaveChanges();
         }
 

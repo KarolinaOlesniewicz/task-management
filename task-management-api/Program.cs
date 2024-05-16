@@ -2,6 +2,7 @@ using task_management_api.entities;
 using task_management_api.services;
 using AutoMapper;
 using task_management_api.middleware;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<TaskManagementDbContext>();
 builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
 builder.Services.AddScoped<IListService, ListService>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 
