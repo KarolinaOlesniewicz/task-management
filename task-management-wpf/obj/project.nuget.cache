@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "TMurDqKGi8UQV6N1SIxGwBWlHHJdWE9AdQAvDPXrwyS2UaG3NmxtOmXKXQeSjry090AWpR+KmYgBo9wOYBZGhg==",
+  "dgSpecHash": "4tKZuMWQ7oZ0bLPSt4NNyHykYVUs+rIpHO/HkMM4QsmzRGHKO8kfaX8T3nevICDZoybKg3Ch4OATZZh7W2CEBQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\Desktop\\task\\task-management\\task-management-wpf\\task-management-wpf.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\ProjektZesp\\task-management-wpf\\task-management-wpf.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mateu\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

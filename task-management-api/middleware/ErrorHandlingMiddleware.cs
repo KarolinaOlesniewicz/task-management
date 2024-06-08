@@ -19,6 +19,11 @@ namespace task_management_api.middleware
                 context.Response.StatusCode = e.StatusCode;
                 await context.Response.WriteAsync(e.Message);
             }
+            catch(BadRequestException e)
+            {
+                context.Response.StatusCode = e.StatusCode;
+                await context.Response.WriteAsync(e.Message);
+            }
             catch (Exception e) 
             {
                 context.Response.StatusCode = 500;

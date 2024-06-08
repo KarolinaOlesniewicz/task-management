@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using task_management_wpf.dtos;
+using task_management_wpf.usercontrolpanel;
 
 namespace task_management_wpf
 {
@@ -54,20 +58,20 @@ namespace task_management_wpf
             Application.Current.Shutdown();
         }
 
-        private void txtemail_TextChanged(Object sender, TextChangedEventArgs e)
+        private void txtusername_TextChanged(Object sender, TextChangedEventArgs e)
 
         {
 
-            if (txtemail.Text != "")
+            if (txtusername.Text != "")
             {
 
-                txtemailPlaceholder.Visibility = Visibility.Hidden;
+                txtusernamePlaceholder.Visibility = Visibility.Hidden;
 
             }
             else
             {
 
-                txtemailPlaceholder.Visibility = Visibility.Visible;
+                txtusernamePlaceholder.Visibility = Visibility.Visible;
 
             }
 
@@ -87,6 +91,53 @@ namespace task_management_wpf
                 txtpasswPlaceholder.Visibility = Visibility.Visible;
 
             }
+        }
+
+        private async void LogIn(string username,string password)
+        {
+            string baseAddress = "http://localhost:5079";
+            string endpoint = "api/user/login";
+
+            LogInDto dto = new LogInDto(username, password);
+
+            var json = JsonConvert.SerializeObject(dto);
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseAddress);
+
+                try
+                {          
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    var response =  await client.PostAsync(endpoint, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        MainGrid.Children.Clear();
+                    }else
+                    {
+                        MessageBox.Show("1");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void LogIn_Click(object sender, RoutedEventArgs e)
+        {
+            if(txtpassw.Password.Length != 0 && txtusername.Text.Length != 0) {
+                LogIn(txtusername.Text,txtpassw.Password);
+            }
+        }
+
+        private void SignUp_click(object sender, RoutedEventArgs e)
+        {
+            MainGrid.Children.Clear();
+            MainGrid.Children.Add(new singupControl(this));
         }
     }
 }

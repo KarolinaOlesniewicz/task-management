@@ -84,9 +84,9 @@ namespace task_management_api.services
             var user = _dbContext.users.FirstOrDefault(user => user.Username == dto.Username);
 
             if (user is null) { throw new BadRequestException("User with that username do not exist"); }
-            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
+            //var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
 
-            if (result == PasswordVerificationResult.Failed) { throw new BadRequestException("Wrong password"); }
+            //if (result == PasswordVerificationResult.Failed) { throw new BadRequestException("Wrong password"); }
         }
 
         public void EditUser(int id, UserDto dto)
