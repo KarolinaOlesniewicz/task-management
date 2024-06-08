@@ -1,12 +1,95 @@
 ﻿<Window x:Class="task_management_wpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:task_management_wpf"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        BorderBrush="Gray"
+        BorderThickness="1"
+        Width="350"
+        Height="450">
+    <Window.Template>
+        <ControlTemplate TargetType="Window">
+            <Border Background="#3e4345" CornerRadius="5">
+                <Grid>
+                    <!-- Górna część okna -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-    </Grid>
+                        <!-- Pierwszy prostokąt -->
+                        <Rectangle Grid.Column="0" Fill="#9fe3ae" Margin="5,100,5,0" Width="40" Height="150" RadiusX="10" RadiusY="10" ClipToBounds="True"/>
+
+                        <!-- Drugi prostokąt -->
+                        <Rectangle Grid.Column="1" Fill="#7fb58b" Margin="5,50,5,0" Width="40" Height="100" RadiusX="10" RadiusY="10" ClipToBounds="True"/>
+
+                        <!-- Trzeci prostokąt -->
+                        <Rectangle Grid.Column="2" Fill="#6e9777" Margin="5,0,5,0" Width="40" Height="50" RadiusX="10" RadiusY="10" ClipToBounds="True"/>
+                    </Grid>
+
+                    <!-- Tekst "Welcome to KARA KAMA" -->
+                    <TextBlock Grid.Row="1" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White">
+                        <Run>Welcome to </Run>
+                        <Run Text="KARA " Foreground="#9fe3ae"/>
+                        <Run Text="KAMA" Foreground="#7fb58b"/>
+                    </TextBlock>
+
+                    <!-- Tekst "Official students project to organize your team's workflow" -->
+                    <TextBlock Grid.Row="2" Text="Official students project to organize your team's workflow" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Roboto" FontWeight="Normal"/>
+
+                    <!-- Przycisk "GET STARTED" -->
+                    <Button x:Name="MainButton"
+                            Grid.Row="3"
+                            Content="GET STARTED"
+                            HorizontalAlignment="Center"
+                            Margin="0,20,0,20"
+                            Background="#9fe3ae"
+                            Foreground="White"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Padding="10"
+                            Width="150"
+                            Height="40" Click="MainButton_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="5">
+                                                <ContentPresenter HorizontalAlignment="Center"
+                                                                  VerticalAlignment="Center"
+                                                                  TextBlock.FontFamily="Roboto"
+                                                                  TextBlock.FontWeight="Bold"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="5"
+                                                          ShadowDepth="2"
+                                                          Color="Black"
+                                                          Opacity="0.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </Window.Template>
 </Window>
