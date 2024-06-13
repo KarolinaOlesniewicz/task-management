@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\user\Desktop\task\task-management\task-management-wpf\App.xaml
-11407045341
+3-1029735041
 
-6895566573
+82096904613
 198155382431
-MainWindow.xaml;
+MainWindow.xaml;TaskColumnControl.xaml;TaskControl.xaml;
 
-False
+True
 
