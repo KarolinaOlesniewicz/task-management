@@ -5,26 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:task_management_wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        MinHeight="600" MinWidth="900"
+        Title="MainWindow" Height="600" Width="1000"
+        Background="#3e4345"
+        WindowStyle="None">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="777*"/>
+            <ColumnDefinition Width="23*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <StackPanel Background="Gray" Grid.Column="0">
-            <TextBlock Text="Boards" Foreground="White" Margin="10" FontSize="16"/>
-            <TextBlock Text="Members" Foreground="White" Margin="10" FontSize="16"/>
-            <StackPanel Margin="10">
-                <Button Content="MemberName" Background="#4CAF50" Foreground="Gray" Margin="5" Height="30" BorderThickness="0"/>
-                <Button Content="MemberName" Background="#4CAF50" Foreground="Gray" Margin="5" Height="30" BorderThickness="0"/>
-                <Button Content="MemberName" Background="#4CAF50" Foreground="Gray" Margin="5" Height="30" BorderThickness="0"/>
+        <Border>
+            <StackPanel Background="#3e4345" Grid.Column="0">
+                <TextBlock Text="Boards" Foreground="White" Margin="10" FontSize="16"/>
+                <TextBlock Text="Members" Foreground="White" Margin="10" FontSize="16"/>
+                <StackPanel Margin="10">
+                    <Button Content="MemberName" Background="#4CAF50" Foreground="Gray" Margin="5" Height="30" BorderThickness="0"/>
+                    <Button Content="MemberName" Background="#4CAF50" Foreground="Gray" Margin="5" Height="30" BorderThickness="0"/>
+                    <Button Content="MemberName" Background="#4CAF50" Foreground="Gray" Margin="5" Height="30" BorderThickness="0"/>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0.1"/>
+            </Border.Effect>
+        </Border>
         <!-- Main Content -->
-        <ScrollViewer Grid.Column="1" Margin="10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <ScrollViewer Grid.Column="1" Margin="10,10,10,10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
                 <local:TaskColumnControl ColumnTitle="TaskName" Tasks="{Binding TaskList1}" Width="200" Margin="5"/>
                 <local:TaskColumnControl ColumnTitle="TaskName" Tasks="{Binding TaskList2}" Width="200" Margin="5"/>

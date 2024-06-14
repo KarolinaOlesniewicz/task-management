@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:task_management_wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="800">
-    <Border Background="#2E3A45" CornerRadius="5" Padding="5" Margin="5">
-        <TextBlock x:Name="TaskNameTextBlock" Text="Task" Foreground="White" FontSize="50"/>
+             d:DesignHeight="25" d:DesignWidth="120">
+    <Border Background="#2E3A45" CornerRadius="5" Padding="5">
+        <TextBlock x:Name="TaskNameTextBlock"  Margin="5,0,0,0" Text="Task" Foreground="White" FontSize="10"/>
     </Border>
 </UserControl>

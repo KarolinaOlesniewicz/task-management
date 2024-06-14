@@ -9,6 +9,15 @@
     <Border Background="#5A7D5A" CornerRadius="10" Padding="5" Margin="5">
         <StackPanel>
             <TextBlock x:Name="ColumnTitleTextBlock" Text="TaskName" Foreground="White" FontSize="14"/>
+            <Border Background="LightGray"
+                    CornerRadius="5">
+                <Button Content="+ Add new task" 
+                        Background="LightGray" 
+                        Foreground="Black" 
+                        Margin="5" Height="30" 
+                        BorderThickness="0"
+                        Click="AddNewTask_Click"/>
+            </Border>
             <ItemsControl x:Name="TasksItemsControl">
                 <!-- ItemTemplate for displaying tasks -->
                 <ItemsControl.ItemTemplate>
@@ -17,7 +26,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Button Content="+ Add new task" Background="LightGray" Foreground="Black" Margin="5" Height="30" BorderThickness="0" Click="AddNewTask_Click"/>
+            
         </StackPanel>
     </Border>
 </UserControl>
