@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Rafal\Source\Repos\task-management\task-management-wpf\App.xaml
-41720266262
+5-1475874749
 
-10-521551753
+11-344288575
 1981385397204
-LandingPage.xaml;MainWindow.xaml;TaskColumnControl.xaml;TaskControl.xaml;
+LandingPage.xaml;LoginPage.xaml;MainWindow.xaml;TaskColumnControl.xaml;TaskControl.xaml;
 
-False
+True
 

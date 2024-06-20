@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Landing Page" Height="720" Width="940"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent">
-    <Border CornerRadius="16" BorderBrush="Black" BorderThickness="1">
+    <Border CornerRadius="8" BorderBrush="Black" BorderThickness="1">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Color="#484F51" Offset="0"/>
