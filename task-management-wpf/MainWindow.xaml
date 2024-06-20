@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:task_management_wpf"
         mc:Ignorable="d"
-        MinHeight="600" MinWidth="900"
-        Title="MainWindow" Height="600" Width="1000"
+        MinHeight="768" MinWidth="1024"
+        Title="MainWindow" Height="768" Width="1024"
         Background="#3e4345"
         WindowStyle="None">
     <Grid>

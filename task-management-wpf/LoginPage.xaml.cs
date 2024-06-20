@@ -23,5 +23,13 @@ namespace task_management_wpf
 		{
 			InitializeComponent();
 		}
+		private void SignInButton_Click(object sender, RoutedEventArgs e)
+		{
+			// Utworzenie i otwarcie nowego okna (RegistrationWindow)
+			RegistrationWindow registrationWindow = new RegistrationWindow();
+			registrationWindow.Show();
+			// Zamknięcie bieżącego okna (LoginWindow)
+			this.Close();
+		}
 	}
 }

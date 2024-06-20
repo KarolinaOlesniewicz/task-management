@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
 
             <!-- Logo -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,200,0,20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,160,0,40">
                 <Rectangle Width="60" Height="180" Fill="#9FE3AE" RadiusX="16" RadiusY="16" Margin="0,0,5,0"/>
                 <Rectangle Width="60" Height="120" Fill="#7FB58B" RadiusX="16" RadiusY="16" Margin="0,-60,5,0"/>
                 <Rectangle Width="60" Height="60" Fill="#6E9777" RadiusX="16" RadiusY="16" Margin="0,-120,5,0"/>
@@ -42,7 +42,8 @@
             <!-- Get Started Button -->
             <Button Grid.Row="3" Content="GET STARTED" Width="540" Height="80" 
                     HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"
-                    FontSize="40" FontFamily="Roboto" Foreground="#F5F5F5" Background="#7FB58B" BorderThickness="0">
+                    FontSize="40" FontFamily="Roboto" Foreground="#F5F5F5" Background="#7FB58B" BorderThickness="0"
+                    Click="GetStartedButton_Click">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 

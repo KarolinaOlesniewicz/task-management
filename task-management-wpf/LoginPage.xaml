@@ -84,7 +84,7 @@
             <!-- Sign In Button -->
             <Button Grid.Column="1" Content="SIGN IN" Width="100" Height="30" 
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"
-                    FontSize="18" FontFamily="Roboto" Foreground="#AABB9D" Background="Transparent" BorderThickness="0">
+                    FontSize="18" FontFamily="Roboto" Foreground="#AABB9D" Background="Transparent" BorderThickness="0" Click="SignInButton_Click">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Opacity" Value="1"/>

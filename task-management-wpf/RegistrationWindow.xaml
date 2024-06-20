@@ -75,7 +75,8 @@
             <!-- Back Button -->
             <Button Content="BACK" Width="180" Height="50" 
                     HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,0,20"
-                    FontSize="40" FontFamily="Roboto" Foreground="#AABB9D" Background="Transparent" BorderThickness="0"/>
+                    FontSize="40" FontFamily="Roboto" Foreground="#AABB9D" Background="Transparent" BorderThickness="0"
+                    Click="BackButton_Click"/>
 
             <!-- Sign In Button -->
             <Button Content="SIGN IN" Width="180" Height="50" 
