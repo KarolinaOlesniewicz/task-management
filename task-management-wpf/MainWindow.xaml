@@ -33,13 +33,13 @@
         </Border>
         <!-- Main Content -->
         <ScrollViewer Grid.Column="1" Margin="10,10,10,10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Grid.ColumnSpan="2">
-            <StackPanel Orientation="Horizontal">
+            <!--<StackPanel Orientation="Horizontal">
                 <local:TaskColumnControl ColumnTitle="TaskName" Tasks="{Binding TaskList1}" Width="200" Margin="5"/>
                 <local:TaskColumnControl ColumnTitle="TaskName" Tasks="{Binding TaskList2}" Width="200" Margin="5"/>
                 <local:TaskColumnControl ColumnTitle="TaskName" Tasks="{Binding TaskList3}" Width="200" Margin="5"/>
                 <local:TaskColumnControl ColumnTitle="TaskName" Tasks="{Binding TaskList4}" Width="200" Margin="5"/>
-                <!-- Dodaj więcej kolumn w razie potrzeby -->
-            </StackPanel>
+                --><!-- Dodaj więcej kolumn w razie potrzeby --><!--
+            </StackPanel>-->
         </ScrollViewer>
     </Grid>
 </Window>

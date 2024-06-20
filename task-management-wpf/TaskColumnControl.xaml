@@ -22,7 +22,7 @@
                 <!-- ItemTemplate for displaying tasks -->
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:TaskControl TaskName="{Binding}"/>
+                        <!--<local:TaskControl TaskName="{Binding}"/>-->
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
