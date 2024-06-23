@@ -28,7 +28,7 @@ namespace task_management_api.services
 
         public IEnumerable<UserDto> GetAllUsers()
         {
-            var users = _dbContext.users.ToList();
+            var users = _dbContext.Users.ToList();
 
             var usersDto = _mapper.Map<List<UserDto>>(users);
 
@@ -38,7 +38,7 @@ namespace task_management_api.services
 
         public UserDto GetById(int id)
         {
-            var user = _dbContext.users.FirstOrDefault(x => x.Id == id);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
 
             if (user is null) throw new NotFoundException("User not Found");
 
@@ -52,7 +52,7 @@ namespace task_management_api.services
         {
             var user = _mapper.Map<User>(dto);
 
-            _dbContext.users.Add(user);
+            _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
 
             return user.Id;
@@ -60,7 +60,7 @@ namespace task_management_api.services
 
         public void EditUser(int id, UserDto dto)
         {
-            var user = _dbContext.users.FirstOrDefault(x => x.Id == id);
+            var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
             
             if (user is null) throw new NotFoundException("User not Found");
 
@@ -87,7 +87,7 @@ namespace task_management_api.services
 
         public void DeleteUser(int id) 
         { 
-            var user = _dbContext.users.FirstOrDefault(u => u.Id == id);
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == id);
             if (user is null) throw new NotFoundException("User not Found");
 
 

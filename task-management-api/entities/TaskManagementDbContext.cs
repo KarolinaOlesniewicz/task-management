@@ -23,7 +23,7 @@ namespace task_management_api.entities
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Milestone> Milestones { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<NotificationTarget> NotificationTargets { get; set; }
+        public DbSet<NotificationTraget> NotificationTargets { get; set; }
         public DbSet<Observation> Observations { get; set; }
         public DbSet<Priority> Priorities { get; set; }
         public DbSet<Task> Tasks { get; set; }
@@ -34,21 +34,8 @@ namespace task_management_api.entities
         public DbSet<Workspace> Workspaces { get; set; }
         public DbSet<WorkspaceMember> WorkspaceMembers { get; set; }
         public DbSet<WorkspaceRole> WorkspaceRoles { get; set; }
-    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
         }
@@ -59,4 +46,6 @@ namespace task_management_api.entities
                 (conString, new MySqlServerVersion(new Version(8, 3, 0)));
         }
     }
+
+
 }

@@ -49,7 +49,7 @@ namespace task_management_api.services
             //     .Where(b => b.BoardMembers.Any(bm => bm.UserId == userId && bm.BoardId == b.Id) && b.WorkspaceId == workspaceId)
             //     .ToListAsync();
 
-            var boards = await _dbContext.boards
+            var boards = await _dbContext.Boards
                 .Where(b => b.BoardMembers.Any(bm => bm.UserId == userId) && b.WorkspaceId == workspaceId)
                 .ToListAsync();
 
@@ -58,7 +58,7 @@ namespace task_management_api.services
 
         public async Task<Board> getBoard(int boardId)
         {
-            var board = await _dbContext.boards
+            var board = await _dbContext.Boards
                   .Where(board => board.Id == boardId)
                   .FirstOrDefaultAsync();
 
@@ -86,7 +86,7 @@ namespace task_management_api.services
                 }
             };
 
-            var targetWorkspace = await _dbContext.workspaces.Include(w => w.Boards)
+            var targetWorkspace = await _dbContext.Workspaces.Include(w => w.Boards)
                 .FirstOrDefaultAsync(w => w.Id == workspaceId);
 
             if (targetWorkspace is null) throw new NotFoundException("workspace not found");
@@ -121,7 +121,7 @@ namespace task_management_api.services
         public async Task editBoard(int boardId, Board editedBoard)
         {
 
-            var boardToEdit = await _dbContext.boards.FirstAsync(board => board.Id == boardId);
+            var boardToEdit = await _dbContext.Boards.FirstAsync(board => board.Id == boardId);
 
             if (boardToEdit == null && editedBoard == null) { throw new NotFoundException("Board not Found"); }
 
@@ -136,11 +136,11 @@ namespace task_management_api.services
         public async Task deleteBoard(int boardId)
         {
 
-            var boardToDelete = await _dbContext.boards.FirstAsync(board => board.Id == boardId);
+            var boardToDelete = await _dbContext.Boards.FirstAsync(board => board.Id == boardId);
 
             if (boardToDelete == null) { throw new NotFoundException("Board not Found"); }
 
-            _dbContext.boards.Remove(boardToDelete);
+            _dbContext.Boards.Remove(boardToDelete);
             await _dbContext.SaveChangesAsync();
         }
     }
