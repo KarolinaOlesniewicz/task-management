@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using task_management_api.entities;
 using task_management_api.exceptions;
 using task_management_api.models.board;
@@ -15,6 +16,7 @@ namespace task_management_api.services
         public int CreateWorkspace(int userId,CreateWorkspaceDto workspace);
         public void DeleteWorkspace(int userId,int workspaceId);
         public void EditWorkspace(int userId, int workspaceId, EditWorkspaceDto dto);
+        public IEnumerable<WorkspaceMemberDto> GetAllWorkspaceMembers(int userId, int workspaceId);
     }
 
     public class WorkspaceService : IWorkspaceService
@@ -116,6 +118,19 @@ namespace task_management_api.services
             //    }
             //}
             _dbContext.SaveChanges();
+        }
+
+        public IEnumerable<WorkspaceMemberDto> GetAllWorkspaceMembers(int userId,int workspaceId)
+        {
+            var workspace = _dbContext.workspaces.Include(r => r.WorkspaceMembers).FirstOrDefault(r => r.OwnerId == userId && r.Id == workspaceId);
+
+            if(workspace is null) { throw new NotFoundException("Workspace not Found"); }
+
+            var members = workspace.WorkspaceMembers.ToList();
+
+            var membersDtos = _mapper.Map<List<WorkspaceMemberDto>>(members);
+
+            return membersDtos;
         }
     }
 }

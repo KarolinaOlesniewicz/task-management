@@ -21,6 +21,8 @@ namespace task_management_api
             CreateMap<entities.Task,TaskDto>();
             CreateMap<TaskDto,entities.Task>();
 
+            CreateMap<WorkspaceMember,WorkspaceMemberDto>();
+
             CreateMap<CreateWorkspaceDto, Workspace>()
                 .ForMember(w => w.Name, opt => opt.MapFrom(dto => dto.Name))
                 .ForMember(w => w.Description, opt => opt.MapFrom(dto => dto.Description))
