@@ -17,6 +17,7 @@ builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IBoardService,BoardService>();
+builder.Services.AddScoped<IMilestoneService, MilestoneService>();
 
 
 var app = builder.Build();
