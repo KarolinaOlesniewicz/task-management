@@ -1,9 +1,11 @@
-﻿using AutoMapper;
+using AutoMapper;
 using task_management_api.entities;
 using task_management_api.models.board;
 using task_management_api.models.list;
 using task_management_api.models.user;
 using task_management_api.models.workspace;
+using task_management_api.models.meeting;
+
 
 namespace task_management_api
 {
@@ -49,14 +51,16 @@ namespace task_management_api
                 .ForMember(l => l.Name, opt => opt.MapFrom(dto => dto.Name))
                 .ForMember(l => l.Position, opt => opt.MapFrom(dto => dto.Position));
 
-            CreateMap<CreateMilestoneDto, Milestone>()
+            CreateMap<CreateMeetingDto, Meeting>()
                 .ForMember(m => m.Name, opt => opt.MapFrom(dto => dto.Name))
                 .ForMember(m => m.Description, opt => opt.MapFrom(dto => dto.Description))
-                .ForMember(m => m.StartDate, opt => opt.MapFrom(dto => dto.StartDate))
-                .ForMember(m => m.EndDate, opt => opt.MapFrom(dto => dto.EndDate));
+                .ForMember(m => m.Location, opt => opt.MapFrom(dto => dto.Location))
+                .ForMember(m => m.Status, opt => opt.MapFrom(dto => dto.Status))
+                .ForMember(m => m.StartDate, opt => opt.MapFrom(dto => dto.StartDate));
 
-            CreateMap<MilestoneDto, Milestone>();
-            CreateMap<Milestone, MilestoneDto>();
+            CreateMap<MeetingDto, Meeting>();
+            CreateMap<Meeting, MeetingDto>();
+
         }
     }
 }
