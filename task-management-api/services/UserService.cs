@@ -1,7 +1,5 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using task_management_api.entities;
 using task_management_api.exceptions;
 using task_management_api.models.user;
@@ -58,13 +56,13 @@ namespace task_management_api.services
         {
             var user = _mapper.Map<User>(dto);
 
-            var usernamecheck = _dbContext.users.FirstOrDefault(Check => Check.Username == dto.Username);
+            var usernamecheck = _dbContext.Users.FirstOrDefault(Check => Check.Username == dto.Username);
             if(usernamecheck is not null)
             {
                 throw new BadRequestException("User with that username already exist");
             }
 
-            var emailCheck = _dbContext.users.FirstOrDefault(Check => Check.Email == dto.Email);
+            var emailCheck = _dbContext.Users.FirstOrDefault(Check => Check.Email == dto.Email);
             if (emailCheck is not null)
             {
                 throw new BadRequestException("User with that email already exist");
@@ -73,7 +71,7 @@ namespace task_management_api.services
 
             user.PasswordHash = _hasher.HashPassword(user,user.PasswordHash);
 
-            _dbContext.users.Add(user);
+            _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
 
             return user.Id;
@@ -81,7 +79,7 @@ namespace task_management_api.services
 
         public async System.Threading.Tasks.Task LogIn(UserLogInDto dto)
         {
-            var user = _dbContext.users.FirstOrDefault(user => user.Username == dto.Username);
+            var user = _dbContext.Users.FirstOrDefault(user => user.Username == dto.Username);
 
             if (user is null) { throw new BadRequestException("User with that username do not exist"); }
             //var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);

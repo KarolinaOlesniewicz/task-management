@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using task_management_api.entities;
 using task_management_api.exceptions;
-using task_management_api.models.board;
 using task_management_api.models.list;
-using task_management_api.models.user;
 using task_management_api.models.workspace;
 
 namespace task_management_api.services
@@ -122,7 +120,7 @@ namespace task_management_api.services
 
         public IEnumerable<WorkspaceMemberDto> GetAllWorkspaceMembers(int userId,int workspaceId)
         {
-            var workspace = _dbContext.workspaces.Include(r => r.WorkspaceMembers).FirstOrDefault(r => r.OwnerId == userId && r.Id == workspaceId);
+            var workspace = _dbContext.Workspaces.Include(r => r.WorkspaceMembers).FirstOrDefault(r => r.OwnerId == userId && r.Id == workspaceId);
 
             if(workspace is null) { throw new NotFoundException("Workspace not Found"); }
 

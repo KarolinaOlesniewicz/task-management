@@ -66,6 +66,15 @@ namespace task_management_api
             CreateMap<MeetingDto, Meeting>();
             CreateMap<Meeting, MeetingDto>();
 
+            CreateMap<CreateMilestoneDto, Milestone>()
+            .ForMember(m => m.Name, opt => opt.MapFrom(dto => dto.Name))
+            .ForMember(m => m.Description, opt => opt.MapFrom(dto => dto.Description))
+            .ForMember(m => m.StartDate, opt => opt.MapFrom(dto => dto.StartDate))
+            .ForMember(m => m.EndDate, opt => opt.MapFrom(dto => dto.EndDate));
+
+            CreateMap<MilestoneDto, Milestone>();
+            CreateMap<Milestone, MilestoneDto>();
+
         }
     }
 }
