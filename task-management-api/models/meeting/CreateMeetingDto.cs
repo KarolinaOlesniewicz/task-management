@@ -1,4 +1,4 @@
-﻿namespace task_management_api.models.list
+﻿namespace task_management_api.models.meeting
 {
     public class CreateMeetingDto
     {

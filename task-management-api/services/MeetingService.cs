@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using task_management_api.entities;
 using task_management_api.exceptions;
-using task_management_api.models.board;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using task_management_api.models.meeting;
 using Task = System.Threading.Tasks.Task;
 

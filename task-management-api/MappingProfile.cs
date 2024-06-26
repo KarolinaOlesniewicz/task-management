@@ -57,6 +57,9 @@ namespace task_management_api
                 .ForMember(m => m.Status, opt => opt.MapFrom(dto => dto.Status))
                 .ForMember(m => m.StartDate, opt => opt.MapFrom(dto => dto.StartDate));
 
+            CreateMap<MeetingDto, Meeting>();
+            CreateMap<Meeting, MeetingDto>();
+
         }
     }
 }
