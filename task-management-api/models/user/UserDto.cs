@@ -22,10 +22,6 @@ namespace task_management_api.models.user
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(100)]
-        public string PasswordSalt { get; set; }
-
-        [Required]
         [MaxLength(255)]
         public string PasswordHash { get; set; }
 

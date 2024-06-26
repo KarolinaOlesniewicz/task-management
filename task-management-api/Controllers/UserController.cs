@@ -42,7 +42,7 @@ namespace task_management_api.Controllers
         {
             var id = _userService.CreateUser(dto);
 
-            return Created($"User created with id:{id}", null);
+            return Created(string.Empty, $"User created with id:{id}");
         }
 
         [HttpPut("{id}")]

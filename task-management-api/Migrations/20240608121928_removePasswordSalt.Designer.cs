@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using task_management_api.entities;
 
@@ -11,9 +12,11 @@ using task_management_api.entities;
 namespace task_management_api.Migrations
 {
     [DbContext(typeof(TaskManagementDbContext))]
-    partial class TaskManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240608121928_removePasswordSalt")]
+    partial class removePasswordSalt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +64,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Activities");
+                    b.ToTable("activities");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Assignment", b =>
@@ -84,64 +87,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Assignments");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Attachment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("URL")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TaskId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Attachments");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Attendee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("MeetingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MeetingId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Attendees");
+                    b.ToTable("assignments");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Board", b =>
@@ -171,7 +117,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("WorkspaceId");
 
-                    b.ToTable("Boards");
+                    b.ToTable("boards");
                 });
 
             modelBuilder.Entity("task_management_api.entities.BoardMember", b =>
@@ -194,7 +140,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BoardMembers");
+                    b.ToTable("boardMembers");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Checklist", b =>
@@ -212,7 +158,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("Checklists");
+                    b.ToTable("checklists");
                 });
 
             modelBuilder.Entity("task_management_api.entities.ChecklistElement", b =>
@@ -233,7 +179,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("ChecklistId");
 
-                    b.ToTable("ChecklistElements");
+                    b.ToTable("checklistElements");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Color", b =>
@@ -250,7 +196,7 @@ namespace task_management_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("colors");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Comment", b =>
@@ -280,7 +226,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("comments");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Label", b =>
@@ -303,7 +249,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("TaskId");
 
-                    b.ToTable("Labels");
+                    b.ToTable("labels");
                 });
 
             modelBuilder.Entity("task_management_api.entities.List", b =>
@@ -328,84 +274,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("BoardId");
 
-                    b.ToTable("Lists");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Meeting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BoardId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoardId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Meetings");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Milestone", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BoardId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BoardId");
-
-                    b.ToTable("Milestones");
+                    b.ToTable("lists");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Notification", b =>
@@ -434,7 +303,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("notifications");
                 });
 
             modelBuilder.Entity("task_management_api.entities.NotificationTraget", b =>
@@ -458,7 +327,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("NotificationTargets");
+                    b.ToTable("NotificationTraget");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Observation", b =>
@@ -481,29 +350,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Observations");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Priority", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ColorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ColorId");
-
-                    b.ToTable("Priorities");
+                    b.ToTable("observations");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Task", b =>
@@ -514,7 +361,7 @@ namespace task_management_api.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BoardID")
+                    b.Property<int>("BoardId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -524,10 +371,7 @@ namespace task_management_api.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("ListID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MilestoneID")
+                    b.Property<int>("ListId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -537,91 +381,16 @@ namespace task_management_api.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
-                    b.Property<int>("PriorityID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BoardID");
+                    b.HasIndex("BoardId");
 
-                    b.HasIndex("ListID");
+                    b.HasIndex("ListId");
 
-                    b.HasIndex("MilestoneID");
-
-                    b.HasIndex("PriorityID");
-
-                    b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.TaskLabel", b =>
-                {
-                    b.Property<int>("TaskLabelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("TaskLabelId"));
-
-                    b.Property<int>("LabelId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.HasKey("TaskLabelId");
-
-                    b.HasIndex("LabelId");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("TaskLabels");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Team", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Teams");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.TeamMember", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeamId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TeamMembers");
+                    b.ToTable("tasks");
                 });
 
             modelBuilder.Entity("task_management_api.entities.User", b =>
@@ -658,7 +427,7 @@ namespace task_management_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Workspace", b =>
@@ -688,7 +457,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Workspaces");
+                    b.ToTable("workspaces");
                 });
 
             modelBuilder.Entity("task_management_api.entities.WorkspaceMember", b =>
@@ -716,7 +485,7 @@ namespace task_management_api.Migrations
 
                     b.HasIndex("WorkspaceId");
 
-                    b.ToTable("WorkspaceMembers");
+                    b.ToTable("workspaceMembers");
                 });
 
             modelBuilder.Entity("task_management_api.entities.WorkspaceRole", b =>
@@ -733,7 +502,7 @@ namespace task_management_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WorkspaceRoles");
+                    b.ToTable("workspaceRoles");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Activity", b =>
@@ -786,44 +555,6 @@ namespace task_management_api.Migrations
                         .IsRequired();
 
                     b.Navigation("Task");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Attachment", b =>
-                {
-                    b.HasOne("task_management_api.entities.Task", "Task")
-                        .WithMany("Attachments")
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("task_management_api.entities.User", "User")
-                        .WithMany("Attachments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Task");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Attendee", b =>
-                {
-                    b.HasOne("task_management_api.entities.Meeting", "Meeting")
-                        .WithMany("Attendees")
-                        .HasForeignKey("MeetingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("task_management_api.entities.User", "User")
-                        .WithMany("Attendees")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Meeting");
 
                     b.Navigation("User");
                 });
@@ -906,7 +637,7 @@ namespace task_management_api.Migrations
                         .HasForeignKey("ColorId");
 
                     b.HasOne("task_management_api.entities.Task", "Task")
-                        .WithMany()
+                        .WithMany("Labels")
                         .HasForeignKey("TaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -920,36 +651,6 @@ namespace task_management_api.Migrations
                 {
                     b.HasOne("task_management_api.entities.Board", "Board")
                         .WithMany("Lists")
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Board");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Meeting", b =>
-                {
-                    b.HasOne("task_management_api.entities.Board", "Board")
-                        .WithMany("Meetings")
-                        .HasForeignKey("BoardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("task_management_api.entities.User", "User")
-                        .WithMany("Meetings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Board");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Milestone", b =>
-                {
-                    b.HasOne("task_management_api.entities.Board", "Board")
-                        .WithMany("Milestones")
                         .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -977,7 +678,7 @@ namespace task_management_api.Migrations
                         .IsRequired();
 
                     b.HasOne("task_management_api.entities.User", "User")
-                        .WithMany("TargetNotifications")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1006,103 +707,29 @@ namespace task_management_api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("task_management_api.entities.Priority", b =>
-                {
-                    b.HasOne("task_management_api.entities.Color", "Color")
-                        .WithMany()
-                        .HasForeignKey("ColorId");
-
-                    b.Navigation("Color");
-                });
-
             modelBuilder.Entity("task_management_api.entities.Task", b =>
                 {
                     b.HasOne("task_management_api.entities.Board", "Board")
-                        .WithMany("Tasks")
-                        .HasForeignKey("BoardID")
+                        .WithMany()
+                        .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("task_management_api.entities.List", "List")
                         .WithMany("Tasks")
-                        .HasForeignKey("ListID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("task_management_api.entities.Milestone", "Milestone")
-                        .WithMany("Tasks")
-                        .HasForeignKey("MilestoneID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("task_management_api.entities.Priority", "Priority")
-                        .WithMany()
-                        .HasForeignKey("PriorityID")
+                        .HasForeignKey("ListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Board");
 
                     b.Navigation("List");
-
-                    b.Navigation("Milestone");
-
-                    b.Navigation("Priority");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.TaskLabel", b =>
-                {
-                    b.HasOne("task_management_api.entities.Label", "Label")
-                        .WithMany("TaskLabels")
-                        .HasForeignKey("LabelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("task_management_api.entities.Task", "Task")
-                        .WithMany("TaskLabels")
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Label");
-
-                    b.Navigation("Task");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Team", b =>
-                {
-                    b.HasOne("task_management_api.entities.User", "Owner")
-                        .WithMany("Teams")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.TeamMember", b =>
-                {
-                    b.HasOne("task_management_api.entities.Team", "Team")
-                        .WithMany("TeamMembers")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("task_management_api.entities.User", "User")
-                        .WithMany("TeamMembers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Team");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Workspace", b =>
                 {
                     b.HasOne("task_management_api.entities.User", "Owner")
-                        .WithMany("Workspaces")
+                        .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1142,12 +769,6 @@ namespace task_management_api.Migrations
                     b.Navigation("BoardMembers");
 
                     b.Navigation("Lists");
-
-                    b.Navigation("Meetings");
-
-                    b.Navigation("Milestones");
-
-                    b.Navigation("Tasks");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Checklist", b =>
@@ -1155,22 +776,7 @@ namespace task_management_api.Migrations
                     b.Navigation("ChecklistElements");
                 });
 
-            modelBuilder.Entity("task_management_api.entities.Label", b =>
-                {
-                    b.Navigation("TaskLabels");
-                });
-
             modelBuilder.Entity("task_management_api.entities.List", b =>
-                {
-                    b.Navigation("Tasks");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Meeting", b =>
-                {
-                    b.Navigation("Attendees");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Milestone", b =>
                 {
                     b.Navigation("Tasks");
                 });
@@ -1185,49 +791,28 @@ namespace task_management_api.Migrations
                 {
                     b.Navigation("Assignments");
 
-                    b.Navigation("Attachments");
-
                     b.Navigation("Checklists");
 
                     b.Navigation("Comments");
 
+                    b.Navigation("Labels");
+
                     b.Navigation("Observations");
-
-                    b.Navigation("TaskLabels");
-                });
-
-            modelBuilder.Entity("task_management_api.entities.Team", b =>
-                {
-                    b.Navigation("TeamMembers");
                 });
 
             modelBuilder.Entity("task_management_api.entities.User", b =>
                 {
                     b.Navigation("Assignments");
 
-                    b.Navigation("Attachments");
-
-                    b.Navigation("Attendees");
-
                     b.Navigation("BoardMembers");
 
                     b.Navigation("Comments");
-
-                    b.Navigation("Meetings");
 
                     b.Navigation("Notifications");
 
                     b.Navigation("Observations");
 
-                    b.Navigation("TargetNotifications");
-
-                    b.Navigation("TeamMembers");
-
-                    b.Navigation("Teams");
-
                     b.Navigation("WorkspaceMembers");
-
-                    b.Navigation("Workspaces");
                 });
 
             modelBuilder.Entity("task_management_api.entities.Workspace", b =>
