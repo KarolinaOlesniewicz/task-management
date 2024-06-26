@@ -8,36 +8,32 @@ namespace task_management_api.entities
     {
         private readonly string conString = "server=localhost;database=taskmanagementdb;user=root;password=root";
 
-        public DbSet<User> users { get; set; }
-        public DbSet<Workspace> workspaces { get; set; }
-        public DbSet<WorkspaceRole> workspaceRoles { get; set; }
-        public DbSet<WorkspaceMember> workspaceMembers { get; set; }
-        public DbSet<Board> boards { get; set; }
-        public DbSet<List> lists { get; set; }
-        public DbSet<Task> tasks { get; set; }
-        public DbSet<Assignment> assignments { get; set; }
-        public DbSet<Comment> comments { get; set; }
-        //public DbSet<Priority> priorities { get; set; }
-        public DbSet<Label> labels { get; set; }
-        public DbSet<Color> colors { get; set; }
-        public DbSet<Observation> observations { get; set; }
-        public DbSet<Notification> notifications { get; set; }
-        public DbSet<Checklist> checklists { get; set; }
-        public DbSet<ChecklistElement> checklistElements { get; set; }
-        public DbSet<BoardMember> boardMembers { get; set; }
-
-        public DbSet<Activity> activities { get; set; }
-
-
-
-
-
-
-
-
-
-
-
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<Attendee> Attendees { get; set; }
+        public DbSet<Board> Boards { get; set; }
+        public DbSet<BoardMember> BoardMembers { get; set; }
+        public DbSet<Checklist> Checklists { get; set; }
+        public DbSet<ChecklistElement> ChecklistElements { get; set; }
+        public DbSet<Color> Colors { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Label> Labels { get; set; }
+        public DbSet<List> Lists { get; set; }
+        public DbSet<Meeting> Meetings { get; set; }
+        public DbSet<Milestone> Milestones { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<NotificationTraget> NotificationTargets { get; set; }
+        public DbSet<Observation> Observations { get; set; }
+        public DbSet<Priority> Priorities { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<TaskLabel> TaskLabels { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<TeamMember> TeamMembers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Workspace> Workspaces { get; set; }
+        public DbSet<WorkspaceMember> WorkspaceMembers { get; set; }
+        public DbSet<WorkspaceRole> WorkspaceRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -50,4 +46,6 @@ namespace task_management_api.entities
                 (conString, new MySqlServerVersion(new Version(8, 3, 0)));
         }
     }
+
+
 }

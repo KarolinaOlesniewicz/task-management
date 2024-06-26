@@ -8,5 +8,6 @@
 
         public virtual Task Task { get; set; }
         public virtual Color Color { get; set; }
+        public ICollection<TaskLabel> TaskLabels { get; set; }
     }
 }

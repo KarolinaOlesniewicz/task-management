@@ -6,10 +6,13 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public string Background { get; set; }
-        public virtual int WorkspaceId { get; set; }
+        public  int WorkspaceId { get; set; }
 
-        public virtual Workspace Workspace { get; set; }
-        public virtual ICollection<List> Lists { get; set; }
-        public virtual ICollection<BoardMember> BoardMembers { get; set; }
+        public Workspace Workspace { get; set; }
+        public ICollection<BoardMember> BoardMembers { get; set; }
+        public ICollection<Milestone> Milestones { get; set; }
+        public ICollection<Meeting> Meetings { get; set; }
+        public ICollection<List> Lists { get; set; }
+        public ICollection<Task> Tasks { get; set; }
     }
 }

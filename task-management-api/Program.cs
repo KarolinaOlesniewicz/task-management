@@ -20,6 +20,7 @@ builder.Services.AddScoped<IListService, ListService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IBoardService,BoardService>();
+builder.Services.AddScoped<IMilestoneService, MilestoneService>();
 
 
 var app = builder.Build();

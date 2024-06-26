@@ -29,14 +29,14 @@ namespace task_management_api.services
 
         public IEnumerable<WorkspaceDisplayDto> GetAllByUserId(int userId)
         {
-            var workspaces = _dbContext.workspaces.Where(x => x.OwnerId == userId).ToList();
+            var workspaces = _dbContext.Workspaces.Where(x => x.OwnerId == userId).ToList();
             var workspacesDtos = _mapper.Map<ICollection<WorkspaceDisplayDto>>(workspaces);
             return workspacesDtos;
         }
 
         public WorkspaceDisplayDto getById(int userId,int workspaceId)
         {
-            var workspace = _dbContext.workspaces.FirstOrDefault(x => x.OwnerId == userId && x.Id == workspaceId);
+            var workspace = _dbContext.Workspaces.FirstOrDefault(x => x.OwnerId == userId && x.Id == workspaceId);
             if (workspace is null)
             {
                 throw new NotFoundException("Workspace not Found");
@@ -70,7 +70,7 @@ namespace task_management_api.services
 
             var workspace = _mapper.Map<Workspace>(workspaceDto);
             workspace.OwnerId = userId;
-            _dbContext.workspaces.Add(workspace);
+            _dbContext.Workspaces.Add(workspace);
             _dbContext.SaveChanges();
 
             return workspace.Id;
@@ -78,7 +78,7 @@ namespace task_management_api.services
 
         public void DeleteWorkspace(int userId, int workspaceId)
         {
-            var workspace = _dbContext.workspaces
+            var workspace = _dbContext.Workspaces
                             .FirstOrDefault(w => w.Id == workspaceId && w.OwnerId == userId);
             if (workspace is null)
             {
@@ -86,13 +86,13 @@ namespace task_management_api.services
             }
 
 
-            _dbContext.workspaces.Remove(workspace);
+            _dbContext.Workspaces.Remove(workspace);
             _dbContext.SaveChanges();
         }
 
         public void EditWorkspace(int userId,int workspaceId,EditWorkspaceDto dto)
         {
-            var workspace = _dbContext.workspaces.FirstOrDefault(w => w.Id ==workspaceId && w.OwnerId == userId);
+            var workspace = _dbContext.Workspaces.FirstOrDefault(w => w.Id ==workspaceId && w.OwnerId == userId);
 
             if (workspace is null) { throw new NotFoundException("Workspace not Found"); }
 

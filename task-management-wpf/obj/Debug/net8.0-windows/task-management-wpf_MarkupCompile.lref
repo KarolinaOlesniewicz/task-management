@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 <<<<<<< HEAD
 
@@ -7,3 +8,9 @@ FD:\ProjektZesp\task-management-wpf\App.xaml;;
 FD:\ProjektZesp\task-management-wpf\LogInWindow.xaml;;
 >>>>>>> features/frontend/uiimplementation
 
+=======
+﻿
+
+FD:\ProjektZesp\task-management-wpf\MainWindow.xaml;;
+
+>>>>>>> origin/features/controllers/milestoneController

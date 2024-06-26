@@ -11,11 +11,18 @@
         public string PasswordHash { get; set; }
         public string ProfilePicture { get; set; }
 
-        public virtual ICollection<WorkspaceMember> WorkspaceMembers { get; set; }
-        public virtual ICollection<Assignment> Assignments { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Observation> Observations { get; set; }
-        public virtual ICollection<Notification> Notifications { get; set; }
-        public virtual ICollection<BoardMember> BoardMembers { get; set; }
+        public ICollection<Team> Teams { get; set; }
+        public ICollection<TeamMember> TeamMembers { get; set; }
+        public ICollection<Workspace> Workspaces { get; set; }
+        public ICollection<WorkspaceMember> WorkspaceMembers { get; set; }
+        public ICollection<BoardMember> BoardMembers { get; set; }
+        public ICollection<Meeting> Meetings { get; set; }
+        public ICollection<Attendee> Attendees { get; set; }
+        public ICollection<Attachment> Attachments { get; set; }
+        public ICollection<Assignment> Assignments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Observation> Observations { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
+        public ICollection<NotificationTraget> TargetNotifications { get; set; }
     }
 }
