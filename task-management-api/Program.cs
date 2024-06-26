@@ -18,6 +18,7 @@ builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IWorkspaceService, WorkspaceService>();
 builder.Services.AddScoped<IListService, ListService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IBoardService,BoardService>();
 builder.Services.AddScoped<IMilestoneService, MilestoneService>();

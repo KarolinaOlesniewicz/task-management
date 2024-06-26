@@ -2,6 +2,7 @@ using AutoMapper;
 using task_management_api.entities;
 using task_management_api.models.board;
 using task_management_api.models.list;
+using task_management_api.models.tasks;
 using task_management_api.models.user;
 using task_management_api.models.workspace;
 using task_management_api.models.meeting;
@@ -17,6 +18,8 @@ namespace task_management_api
             CreateMap<User,UserDto>();
             CreateMap<Workspace, WorkspaceDisplayDto>();
             CreateMap<List, ListDto>();
+            CreateMap<entities.Task,TaskDto>();
+            CreateMap<TaskDto,entities.Task>();
 
             CreateMap<CreateWorkspaceDto, Workspace>()
                 .ForMember(w => w.Name, opt => opt.MapFrom(dto => dto.Name))
