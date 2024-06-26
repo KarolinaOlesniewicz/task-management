@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using task_management_api.entities;
 using task_management_api.models.board;
+using task_management_api.models.milestone;
 using task_management_api.services;
 
 namespace task_management_api.Controllers
@@ -18,6 +19,8 @@ namespace task_management_api.Controllers
             {
                 _milestoneService = milestoneService;
             }
+
+           
 
             [HttpGet]
             public async Task<ActionResult<IEnumerable<MilestoneDto>>> GetAllMilestonesForBoard(

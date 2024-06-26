@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using task_management_api.entities;
 using task_management_api.exceptions;
+using task_management_api.models.milestone;
 using Task = System.Threading.Tasks.Task;
 
 namespace task_management_api.services

@@ -1,12 +1,17 @@
 ﻿using System;
 
-/// <summary>
-/// Summary description for Class1
-/// </summary>
-public class CreateMilestoneDto
+
+
+namespace task_management_api.models.milestone
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    /// <summary>
+    /// Summary description for Class1
+    /// </summary>
+    public class CreateMilestoneDto
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+    }
 }

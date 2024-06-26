@@ -6,6 +6,7 @@ using task_management_api.models.tasks;
 using task_management_api.models.user;
 using task_management_api.models.workspace;
 using task_management_api.models.meeting;
+using task_management_api.models.milestone;
 
 
 namespace task_management_api
