@@ -20,5 +20,14 @@ namespace task_management_wpf
         {
             InitializeComponent();
         }
+
+        private void MainButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            LogInWindow logInWindow = new LogInWindow();
+            logInWindow.Show();
+            this.Close();
+
+        }
     }
 }
