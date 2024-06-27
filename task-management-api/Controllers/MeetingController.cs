@@ -24,7 +24,6 @@ namespace task_management_api.Controllers
             _meetingService = meetingService;
         }
 
-
         /// <summary>
         /// Retrieves all meetings for a specific board.
         /// </summary>

@@ -96,8 +96,7 @@ namespace task_management_api.Controllers
         public async Task<IActionResult> DeleteTask([FromRoute]int taskId)
         {
             await _taskService.DeleteTask(taskId);
-            return NoContent();
-                
+            return NoContent();       
         }
     }
 }
