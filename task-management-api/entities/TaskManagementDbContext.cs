@@ -4,6 +4,10 @@ using System.Configuration;
 
 namespace task_management_api.entities
 {
+    /// <summary>
+    /// Represents the database context for a task management application.
+    /// This class facilitates interaction with the database and provides access to various data sets related to tasks, activities, users, teams, and other entities.
+    /// </summary>
     public class TaskManagementDbContext : DbContext
     {
         private readonly string conString = "server=localhost;database=taskmanagementdb;user=root;password=root";
@@ -35,11 +39,21 @@ namespace task_management_api.entities
         public DbSet<WorkspaceMember> WorkspaceMembers { get; set; }
         public DbSet<WorkspaceRole> WorkspaceRoles { get; set; }
 
+
+        /// <summary>
+        /// Overrides the default behavior for model configuration.
+        /// This method is typically used to define relationships between tables or customize table mappings.
+        /// </summary>
+        /// <param name="modelBuilder">The model builder instance used for configuring the entity model.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
         }
 
+        /// <summary>
+        /// Configures the database connection for this context.
+        /// </summary>
+        /// <param name="optionsBuilder">The DbContext options builder instance.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql

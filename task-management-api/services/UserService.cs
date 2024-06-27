@@ -6,15 +6,52 @@ using task_management_api.models.user;
 
 namespace task_management_api.services
 {
-
+    /// <summary>
+    /// Defines an interface for user management services.
+    /// This interface specifies methods for user operations like retrieval, creation, modification, and deletion.
+    /// </summary>
     public interface IUserService
     {
-        public IEnumerable<UserDto> GetAllUsers();
-        public UserDto GetById(int id);
-        public int CreateUser(UserDto dto);
+        /// <summary>
+        /// Retrieves a collection of all user data transfer objects (DTOs).
+        /// </summary>
+        /// <returns>An IEnumerable of UserDto objects representing all users.</returns>
+        IEnumerable<UserDto> GetAllUsers();
+
+        /// <summary>
+        /// Retrieves a specific user data transfer object (DTO) by its identifier.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user to retrieve.</param>
+        /// <returns>A UserDto object representing the user with the specified ID, or null if not found.</returns>
+        UserDto GetById(int id);
+
+        /// <summary>
+        /// Creates a new user in the system.
+        /// </summary>
+        /// <param name="dto">The UserDto object containing the data for the new user.</param>
+        /// <returns>The ID of the newly created user.</returns>
+        int CreateUser(UserDto dto);
+
+        /// <summary>
+        /// Edits an existing user's data.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user to edit.</param>
+        /// <param name="dto">The UserDto object containing the updated data for the user.</param>
         public void EditUser(int id, UserDto dto);
+
+        /// <summary>
+        /// Deletes a user from the system.
+        /// </summary>
+        /// <param name="id">The unique identifier of the user to delete.</param>
         public void DeleteUser(int id);
 
+        /// <summary>
+        /// Attempts to log a user into the system using the provided credentials.
+        /// This method is asynchronous.
+        /// </summary>
+        /// <param name="dto">The UserLogInDto object containing the login credentials (username and password).</param>
+        /// <returns>A task object that represents the asynchronous login operation. Upon successful login, no explicit value is returned from the task.</returns>
+        /// <exception cref="BadRequestException">Thrown if the username is not found or the password is incorrect.</exception>
         public System.Threading.Tasks.Task LogIn(UserLogInDto dto);
     }
 
@@ -82,9 +119,10 @@ namespace task_management_api.services
             var user = _dbContext.Users.FirstOrDefault(user => user.Username == dto.Username);
 
             if (user is null) { throw new BadRequestException("User with that username do not exist"); }
-            //var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
 
-            //if (result == PasswordVerificationResult.Failed) { throw new BadRequestException("Wrong password"); }
+            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
+
+            if (result == PasswordVerificationResult.Failed) { throw new BadRequestException("Wrong password"); }
         }
 
         public void EditUser(int id, UserDto dto)

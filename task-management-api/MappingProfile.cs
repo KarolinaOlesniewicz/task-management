@@ -11,8 +11,14 @@ using task_management_api.models.milestone;
 
 namespace task_management_api
 {
+    /// <summary>
+    /// Defines a profile for AutoMapper configuration, specifying mappings between various data transfer objects (DTOs) and their corresponding entities.
+    /// </summary>
     public class MappingProfile : Profile
     {
+        /// <summary>
+        /// Constructor that initialize mappings.
+        /// </summary>
         public MappingProfile()
         {
             CreateMap<UserDto, User>();
