@@ -8,20 +8,63 @@ using Task = System.Threading.Tasks.Task;
 
 namespace task_management_api.services
 {
+    /// <summary>
+    /// Defines an interface for board management services.
+    /// This interface specifies methods for board operations like retrieval, creation, modification, and deletion.
+    /// </summary>
     public interface IBoardService
     {
+        /// <summary>
+        /// Retrieves a collection of boards that a user is a member of within a specific workspace.
+        /// </summary>
+        /// <param name="userId">The ID of the user.</param>
+        /// <param name="workspaceId">The ID of the workspace.</param>
+        /// <returns>An IEnumerable of Board objects representing all boards the user is a member of within the workspace.</returns>
         Task<IEnumerable<Board>> getBoards(int userId, int workspaceId);
+
+        /// <summary>
+        /// Retrieves a specific board by its identifier.
+        /// </summary>
+        /// <param name="boardId">The unique identifier of the board to retrieve.</param>
+        /// <returns>A Board object representing the board with the specified ID.</returns>
         Task<Board> getBoard(int boardId);
+
+        /// <summary>
+        /// Creates a new board in a specific workspace and adds the default lists.
+        /// </summary>
+        /// <param name="incomingBoard">A CreateBoardDto object containing the data for the new board.</param>
+        /// <param name="workspaceId">The ID of the workspace where the board will be created.</param>
+        /// <param name="userId">The ID of the user creating the board.</param>
+        /// <returns>The ID of the newly created board.</returns>
         Task<int> addBoard(CreateBoardDto incomingBoard, int workspaceId, int userId);
+
+        /// <summary>
+        /// Edits an existing board's data.
+        /// </summary>
+        /// <param name="boardId">The unique identifier of the board to edit.</param>
+        /// <param name="editedBoard">A Board object containing the updated data for the board.</param>
         Task editBoard(int boardId, Board editedBoard);
+
+        /// <summary>
+        /// Deletes a specific board by its identifier.
+        /// </summary>
+        /// <param name="boardId">The unique identifier of the board to delete.</param>
         Task deleteBoard(int boardId);
     }
 
+    /// <summary>
+    /// Service implementation for managing boards.
+    /// </summary>
     public class BoardService : IBoardService
     {
         private readonly TaskManagementDbContext _dbContext;
         private readonly IMapper _mapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BoardService"/> class.
+        /// </summary>
+        /// <param name="dbContext">The database context.</param>
+        /// <param name="mapper">The AutoMapper instance.</param>
         public BoardService(TaskManagementDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
@@ -56,6 +99,7 @@ namespace task_management_api.services
             return boards;
         }
 
+        /// <inheritdoc/>
         public async Task<Board> getBoard(int boardId)
         {
             var board = await _dbContext.Boards
@@ -65,6 +109,7 @@ namespace task_management_api.services
             return board;
         }
 
+        /// <inheritdoc/>
         public async Task<int> addBoard(CreateBoardDto incomingBoard, int workspaceId, int userId)
         {
             var listDtos = new List<CreateListDto>
@@ -118,6 +163,7 @@ namespace task_management_api.services
             return newBoard.Id;
         }
 
+        /// <inheritdoc/>
         public async Task editBoard(int boardId, Board editedBoard)
         {
 
@@ -133,6 +179,7 @@ namespace task_management_api.services
             await _dbContext.SaveChangesAsync();
         }
 
+        /// <inheritdoc/>
         public async Task deleteBoard(int boardId)
         {
 
