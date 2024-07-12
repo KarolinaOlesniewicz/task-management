@@ -55,11 +55,21 @@ namespace task_management_api.services
         public System.Threading.Tasks.Task LogIn(UserLogInDto dto);
     }
 
+    /// <summary>
+    /// Service implementation for managing users.
+    /// </summary>
     public class UserService : IUserService
     {
         private readonly TaskManagementDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<User> _hasher;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserService"/> class.
+        /// </summary>
+        /// <param name="dbContext">The database context for task management.</param>
+        /// <param name="mapper">The mapper for object-object mapping.</param>
+        /// <param name="hasher">The password hasher for hashing user passwords.</param>
         public UserService(TaskManagementDbContext dbContext,IMapper mapper, IPasswordHasher<User> hasher)
         {
             _dbContext = dbContext;
@@ -67,6 +77,7 @@ namespace task_management_api.services
             _hasher = hasher;
         }
 
+        /// <inheritdoc />
         public IEnumerable<UserDto> GetAllUsers()
         {
             var users = _dbContext.Users.ToList();
@@ -77,6 +88,7 @@ namespace task_management_api.services
             
         }
 
+        /// <inheritdoc />
         public UserDto GetById(int id)
         {
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
@@ -89,6 +101,7 @@ namespace task_management_api.services
             return userDto;
         }
 
+        /// <inheritdoc />
         public int CreateUser(UserDto dto)
         {
             var user = _mapper.Map<User>(dto);
@@ -114,6 +127,7 @@ namespace task_management_api.services
             return user.Id;
         }
 
+        /// <inheritdoc />
         public async System.Threading.Tasks.Task LogIn(UserLogInDto dto)
         {
             var user = _dbContext.Users.FirstOrDefault(user => user.Username == dto.Username);
@@ -125,6 +139,7 @@ namespace task_management_api.services
             if (result == PasswordVerificationResult.Failed) { throw new BadRequestException("Wrong password"); }
         }
 
+        /// <inheritdoc />
         public void EditUser(int id, UserDto dto)
         {
             var user = _dbContext.Users.FirstOrDefault(x => x.Id == id);
@@ -136,6 +151,7 @@ namespace task_management_api.services
             _dbContext.SaveChanges();
         }
 
+        /// <inheritdoc />
         public void DeleteUser(int id) 
         { 
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == id);
