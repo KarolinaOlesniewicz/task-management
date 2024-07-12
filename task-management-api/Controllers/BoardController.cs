@@ -31,7 +31,7 @@ namespace task_management_api.Controllers
         /// <param name="workspaceId">The ID of the workspace containing the boards.</param>
         /// <returns>An <see cref="IActionResult"/> containing a collection of <see cref="Board"/> objects.</returns>
         /// <response code="200">Returns the list of boards.</response>
-        [HttpGet("/boards")]
+        [HttpGet("boards")]
         public async Task<IActionResult> GetBoards([FromRoute] int userId, [FromRoute] int workspaceId)
         {
             var boards = await _boardService.getBoards(userId, workspaceId);

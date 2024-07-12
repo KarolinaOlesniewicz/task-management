@@ -73,27 +73,6 @@ namespace task_management_api.services
 
         public async Task<IEnumerable<Board>> getBoards(int userId, int workspaceId)
         {
-            //SELECT *
-            //FROM boards as B
-            //INNER JOIN boardmembers AS BM ON B.Id = BM.BoardId
-            //WHERE BM.UserId = ? AND B.WorkspaceId = ?
-
-            //var boards = await _dbContext.boards
-            //    .Join(_dbContext.boardMembers,
-            //    b => b.Id,
-            //    bm => bm.BoardId,
-            //    (b, bm) => new { Board = b, BoardMember = bm })
-            //    .Where(joinResult => joinResult.BoardMember.UserId == userId && joinResult.Board.WorkspaceId == workspaceId)
-            //    .Select(joinResult => joinResult.Board)
-            //.ToListAsync();
-
-            //var boards = await _dbContext.boards
-            //    .Include(b => b.BoardMembers) // Dołącz tablice członków
-            //     .Where(b => b.BoardMembers.Any(bm => bm.UserId == userId && bm.BoardId == b.Id) && b.WorkspaceId == workspaceId)
-            //     .ToListAsync();
-
-
-
             var boards = _dbContext.Boards.Where(w => w.WorkspaceId == workspaceId);
 
             return boards;
@@ -105,6 +84,11 @@ namespace task_management_api.services
             var board = await _dbContext.Boards
                   .Where(board => board.Id == boardId)
                   .FirstOrDefaultAsync();
+
+            if(board is null)
+            {
+                throw new NotFoundException("Board not found");
+            }
 
             return board;
         }
@@ -147,17 +131,9 @@ namespace task_management_api.services
 
             newBoard.Lists = _mapper.Map<List<List>>(listDtos);
 
-            //if(targetWorkspace.Boards is null) {
-            //    targetWorkspace.Boards.
-            //}
-            //else
-            //{
-            //    targetWorkspace.Boards.Add(newBoard); 
-            //}
 
             targetWorkspace.Boards.Add(newBoard);
 
-            //await _dbContext.boards.AddAsync(newBoard);
             await _dbContext.SaveChangesAsync();
 
             return newBoard.Id;
