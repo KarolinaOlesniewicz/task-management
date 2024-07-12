@@ -43,7 +43,7 @@ namespace task_management_api.services
         /// </summary>
         /// <param name="boardId">The unique identifier of the board to edit.</param>
         /// <param name="editedBoard">A Board object containing the updated data for the board.</param>
-        Task editBoard(int boardId, Board editedBoard);
+        Task editBoard(int boardId, BoardDto editedBoard);
 
         /// <summary>
         /// Deletes a specific board by its identifier.
@@ -164,7 +164,7 @@ namespace task_management_api.services
         }
 
         /// <inheritdoc/>
-        public async Task editBoard(int boardId, Board editedBoard)
+        public async Task editBoard(int boardId, BoardDto editedBoard)
         {
 
             var boardToEdit = await _dbContext.Boards.FirstAsync(board => board.Id == boardId);
