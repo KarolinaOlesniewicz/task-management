@@ -139,6 +139,7 @@ namespace task_management_api.services
         public void DeleteUser(int id) 
         { 
             var user = _dbContext.Users.FirstOrDefault(u => u.Id == id);
+            var users = _dbContext.Users.ToList();
             if (user is null) throw new NotFoundException("User not Found");
 
 

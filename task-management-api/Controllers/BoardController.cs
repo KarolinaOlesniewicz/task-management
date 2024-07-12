@@ -17,7 +17,7 @@ namespace task_management_api.Controllers
             _boardService = boardService;
         }
 
-        [HttpGet("/boards")]
+        [HttpGet("boards")]
         public async Task<IActionResult> GetBoards([FromRoute] int userId, [FromRoute] int workspaceId)
         {
             var boards = await _boardService.getBoards(userId, workspaceId);
@@ -41,7 +41,7 @@ namespace task_management_api.Controllers
         }
 
         [HttpPut("{boardId}")]
-        public async Task<IActionResult> EditBoard([FromRoute] int boardId, Board editedBoard)
+        public async Task<IActionResult> EditBoard([FromRoute] int boardId, BoardDto editedBoard)
         {
             await _boardService.editBoard(boardId, editedBoard);
 

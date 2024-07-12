@@ -49,9 +49,9 @@ namespace task_management_api.services
             //     .Where(b => b.BoardMembers.Any(bm => bm.UserId == userId && bm.BoardId == b.Id) && b.WorkspaceId == workspaceId)
             //     .ToListAsync();
 
-            var boards = await _dbContext.Boards
-                .Where(b => b.BoardMembers.Any(bm => bm.UserId == userId) && b.WorkspaceId == workspaceId)
-                .ToListAsync();
+
+
+            var boards = _dbContext.Boards.Where(w => w.WorkspaceId == workspaceId);
 
             return boards;
         }

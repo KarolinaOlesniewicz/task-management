@@ -98,23 +98,6 @@ namespace task_management_api.services
 
             workspace = (Workspace)ReflectionService.Reflect(dto, workspace);
 
-            //if (workspace is null) { return false; }
-
-            //var workspaceProperties = typeof(Workspace).GetProperties();
-            //var workspaceDtoProperties = typeof(EditWorkspaceDto).GetProperties();
-
-            //foreach (var dtoProperty in workspaceDtoProperties)
-            //{
-            //    var workspaceProperty = workspaceProperties.FirstOrDefault(p => p.Name == dtoProperty.Name);
-
-            //    var userValue = workspaceProperty.GetValue(workspace);
-            //    var dtoValue = dtoProperty.GetValue(dto);
-
-            //    if (userValue != dtoProperty)
-            //    {
-            //        workspaceProperty.SetValue(workspace, dtoValue);
-            //    }
-            //}
             _dbContext.SaveChanges();
         }
 
