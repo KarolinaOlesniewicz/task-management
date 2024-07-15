@@ -6,12 +6,19 @@ using task_management_api.models.tasks;
 using task_management_api.models.user;
 using task_management_api.models.workspace;
 using task_management_api.models.meeting;
+using task_management_api.models.milestone;
 
 
 namespace task_management_api
 {
+    /// <summary>
+    /// Defines a profile for AutoMapper configuration, specifying mappings between various data transfer objects (DTOs) and their corresponding entities.
+    /// </summary>
     public class MappingProfile : Profile
     {
+        /// <summary>
+        /// Constructor that initialize mappings.
+        /// </summary>
         public MappingProfile()
         {
             CreateMap<UserDto, User>();
@@ -65,6 +72,15 @@ namespace task_management_api
 
             CreateMap<MeetingDto, Meeting>();
             CreateMap<Meeting, MeetingDto>();
+
+            CreateMap<CreateMilestoneDto, Milestone>()
+            .ForMember(m => m.Name, opt => opt.MapFrom(dto => dto.Name))
+            .ForMember(m => m.Description, opt => opt.MapFrom(dto => dto.Description))
+            .ForMember(m => m.StartDate, opt => opt.MapFrom(dto => dto.StartDate))
+            .ForMember(m => m.EndDate, opt => opt.MapFrom(dto => dto.EndDate));
+
+            CreateMap<MilestoneDto, Milestone>();
+            CreateMap<Milestone, MilestoneDto>();
 
         }
     }

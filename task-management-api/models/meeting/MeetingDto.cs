@@ -12,6 +12,6 @@ namespace task_management_api.models.meeting
         public DateTime StartDate { get; set; }
         public int CreatorId { get; set; }
         public int BoardId { get; set; }
-        public ICollection<Attendee> Attendees { get; set; }
+        //public ICollection<Attendee> Attendees { get; set; }
     }
 }
