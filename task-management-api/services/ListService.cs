@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using task_management_api.entities;
 using task_management_api.exceptions;
 using task_management_api.models.list;
@@ -74,8 +75,9 @@ namespace task_management_api.services
         /// <inheritdoc/>
         public async Task<ICollection<ListDto>> GetAllListsForBoard(int userId, int workspaceId, int boardId)
         {
-            var board = await _dbContext.Boards.FirstOrDefaultAsync(b => b.Id == boardId);
+            var board = await _dbContext.Boards.Include(b => b.Lists).FirstOrDefaultAsync(b => b.Id == boardId);
             if(board is null) { throw new NotFoundException("Board not found"); }
+            if(board.Lists is null) { throw new NotFoundException("This board do not have lists yet."); }
             var lists = board.Lists.ToList();
             var listsDto = _mapper.Map<List<ListDto>>(lists);
             return listsDto;
@@ -86,6 +88,10 @@ namespace task_management_api.services
         {
             var list = _mapper.Map<List>(dto);
             list.BoardId = boardId;
+            var board = await _dbContext.Boards.Include(b => b.Lists).FirstOrDefaultAsync(b => b.Id == boardId);
+            var lists = board.Lists;
+            var position = lists.Max(r => r.Position) +1;
+            list.Position = position;
             // error with foreign key constrains caused by no board controller implementation yet
             _dbContext.Lists.Add(list);
             _dbContext.SaveChanges();
@@ -94,7 +100,7 @@ namespace task_management_api.services
         /// <inheritdoc/>
         public async System.Threading.Tasks.Task MoveList(int boardId, int listId, int newPosition)
         {
-            var board = _dbContext.Boards.FirstOrDefault(b => b.Id == boardId);
+            var board = _dbContext.Boards.Include(b => b.Lists).FirstOrDefault(b => b.Id == boardId);
 
             if(board is null) { throw new NotFoundException("Board not found");  }
 
@@ -115,17 +121,15 @@ namespace task_management_api.services
         /// <inheritdoc/>
         public async System.Threading.Tasks.Task DeleteList(int boardId, int listId)
         {
-            var board = _dbContext.Boards.FirstOrDefaultAsync(b => b.Id == boardId);
+            var board = await _dbContext.Boards.Include(b => b.Lists).FirstOrDefaultAsync(b => b.Id == boardId);
 
             if(board is null) { throw new NotFoundException("Board Not Found"); }
 
-            if(board.Result is null){  throw new NotFoundException("Board have no content in current context"); }
-
-            var DeletedList = board.Result.Lists.FirstOrDefault(l => l.Id == listId);
+            var DeletedList = board.Lists.FirstOrDefault(l => l.Id == listId);
 
             if(DeletedList is null) { throw new NotFoundException("List you are trying to remove do not exist in current context"); }
 
-            var lists = board.Result.Lists.Where(l => l.Position < DeletedList.Position).GroupBy(b => b.Position).ToList();
+            var lists = board.Lists.Where(l => l.Position < DeletedList.Position).OrderBy(b => b.Position).ToList();
 
             foreach (List list in lists)
             {
@@ -139,13 +143,12 @@ namespace task_management_api.services
         /// <inheritdoc/>ssss
         public async System.Threading.Tasks.Task ChangeListName(int boardId, int listId,  string name)
         {
-            var board = _dbContext.Boards.FirstOrDefaultAsync(b => b.Id == boardId);
+            var board = await _dbContext.Boards.Include(b => b.Lists).FirstOrDefaultAsync(b => b.Id == boardId);
 
             if (board is null) { throw new NotFoundException("Board Not Found"); }
 
-            if (board.Result is null) { throw new NotFoundException("Board have no content in current context"); }
 
-            var list = board.Result.Lists.FirstOrDefault(b => b.Id == listId);
+            var list = board.Lists.FirstOrDefault(b => b.Id == listId);
 
             if (list is null) { throw new NotFoundException("List does not exist"); }
             list.Name = name;
