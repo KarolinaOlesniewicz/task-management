@@ -21,7 +21,7 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 builder.Services.AddScoped<IBoardService,BoardService>();
-builder.Services.AddScoped<IMilestoneService, MilestoneService>();
+//builder.Services.AddScoped<IMilestoneService, MilestoneService>();
 builder.Services.AddScoped<IMeetingService, MeetingService>();
 
 

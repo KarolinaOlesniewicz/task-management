@@ -10,7 +10,8 @@
 
         public Workspace Workspace { get; set; }
         public ICollection<BoardMember> BoardMembers { get; set; }
-        public ICollection<Milestone> Milestones { get; set; }
+
+        //public ICollection<Milestone> Milestones { get; set; }
         public ICollection<Meeting> Meetings { get; set; }
         public ICollection<List> Lists { get; set; }
         public ICollection<Task> Tasks { get; set; }

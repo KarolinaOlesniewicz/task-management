@@ -25,7 +25,7 @@ namespace task_management_api.entities
         public DbSet<Label> Labels { get; set; }
         public DbSet<List> Lists { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
-        public DbSet<Milestone> Milestones { get; set; }
+        //public DbSet<Milestone> Milestones { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<NotificationTraget> NotificationTargets { get; set; }
         public DbSet<Observation> Observations { get; set; }

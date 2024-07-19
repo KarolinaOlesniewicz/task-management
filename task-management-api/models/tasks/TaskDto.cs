@@ -4,8 +4,8 @@ namespace task_management_api.models.tasks
 {
     public class TaskDto
     {
-        public int ListId { get; set; }
-        public int BoardId { get; set; }
+        //public int ListId { get; set; }
+        //public int BoardId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime? StartDate { get; set; }

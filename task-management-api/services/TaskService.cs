@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using task_management_api.entities;
 using task_management_api.exceptions;
 using task_management_api.models.tasks;
@@ -77,10 +78,10 @@ namespace task_management_api.services
         /// <inheritdoc />
         public async Task<ICollection<TaskDto>> getTaskForList(int boardId, int listId)
         {
-            var board = _dbContext.Boards.FirstOrDefault(b => b.Id == boardId);
+            var board = _dbContext.Boards.Include(b => b.Lists).FirstOrDefault(b => b.Id == boardId);
             if (board is null) { throw new NotFoundException("Board does not exist in current context"); }
 
-            var list = board.Lists.FirstOrDefault(l => l.Id == listId);
+            var list = _dbContext.Lists.Include(l => l.Tasks).FirstOrDefault(l => l.Id == listId);
             if (list is null) { throw new NotFoundException("List Does not Exist in current Context"); }
 
             var tasks = list.Tasks.ToList();
@@ -96,10 +97,10 @@ namespace task_management_api.services
             var board = _dbContext.Boards.FirstOrDefault(b => b.Id == boardId);
             if (board is null) { throw new NotFoundException("Board does not exist in current context"); }
 
-            var list = board.Lists.FirstOrDefault(l => l.Id == listId);
+            var list = _dbContext.Lists.FirstOrDefault(l => l.Id == listId);
             if (list is null) { throw new NotFoundException("List Does not Exist in current Context"); }
 
-            var task = list.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = _dbContext.Tasks.FirstOrDefault(t => t.Id == taskId);
             if (task is null) { throw new NotFoundException("Task does not exist"); }
 
             var taskDto = _mapper.Map<TaskDto>(task);
@@ -123,10 +124,10 @@ namespace task_management_api.services
             var board = _dbContext.Boards.FirstOrDefault(b => b.Id == boardId);
             if (board is null) { throw new NotFoundException("Board does not exist in current context"); }
 
-            var list = board.Lists.FirstOrDefault(l => l.Id == listId);
+            var list = _dbContext.Lists.FirstOrDefault(l => l.Id == listId);
             if (list is null) { throw new NotFoundException("List Does not Exist in current Context"); }
 
-            var task = list.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = _dbContext.Tasks.FirstOrDefault(t => t.Id == taskId);
             if (task is null) { throw new NotFoundException("Task does not exist"); }
 
             task = (entities.Task)ReflectionService.Reflect(dto, task);
@@ -136,16 +137,17 @@ namespace task_management_api.services
         /// <inheritdoc />
         public async System.Threading.Tasks.Task CreateTask(TaskDto dto, int boardId, int listId)
         {
-            var board = _dbContext.Boards.FirstOrDefault(b => b.Id == boardId);
+            var board = _dbContext.Boards.Include(b => b.Lists).FirstOrDefault(b => b.Id == boardId);
             if (board is null) { throw new NotFoundException("Board does not exist in current context"); }
 
-            var list = board.Lists.FirstOrDefault(l => l.Id == listId);
+            var list = _dbContext.Lists.Include(l => l.Tasks).FirstOrDefault(l => l.Id == listId);
             if (list is null) { throw new NotFoundException("List Does not Exist in current Context"); }
 
             var task = _mapper.Map<entities.Task>(dto);
-
+            task.BoardID = board.Id;
             list.Tasks.Add(task);
             _dbContext.SaveChanges();
+
         }
 
     }
