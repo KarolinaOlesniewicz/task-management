@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/task-management-wpf/.vs/task-management-wpf/DesignTimeBuild/.dtbcache.v2
+/task-management-wpf/obj/Debug/net8.0-windows/task-management-wpf.AssemblyInfoInputs.cache
+/task-management-wpf/obj/Debug/net8.0-windows/task-management-wpf.AssemblyInfo.cs
