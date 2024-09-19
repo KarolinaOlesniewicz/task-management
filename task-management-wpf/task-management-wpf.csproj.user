@@ -13,6 +13,9 @@
     <Compile Update="usercontrolpanel\singupControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="usercontrolpanel\TaskView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="usercontrolpanel\UserProfile.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="usercontrolpanel\singupControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="usercontrolpanel\TaskView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="usercontrolpanel\UserProfile.xaml">

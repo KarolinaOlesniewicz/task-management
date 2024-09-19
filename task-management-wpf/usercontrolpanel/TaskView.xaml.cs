@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace task_management_wpf.usercontrolpanel
 {
     /// <summary>
-    /// Interaction logic for UserProfile.xaml
+    /// Interaction logic for TaskView.xaml
     /// </summary>
-    public partial class UserProfile : Window
+    public partial class TaskView : Window
     {
-        public UserProfile()
+        public TaskView()
         {
-   
-
+            InitializeComponent();
         }
     }
 }
