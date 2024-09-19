@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("task-management-wpf")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2989ab336dfb22b74556a282231b658b0ae197c4")]
 [assembly: System.Reflection.AssemblyProductAttribute("task-management-wpf")]
 [assembly: System.Reflection.AssemblyTitleAttribute("task-management-wpf")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
