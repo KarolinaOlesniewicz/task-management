@@ -12,6 +12,9 @@
         <!-- Lewa sekcja: filtry tasków -->
         <Border Grid.Column="0" Background="#34495e" Padding="15" CornerRadius="10" Margin="0,0,10,0">
             <StackPanel HorizontalAlignment="Stretch">
+                <!-- Back to Menu Button placed above the Filter Tasks header -->
+                <Button Content="Back to Menu" Width="120" Background="#3498db" Foreground="White" Margin="0,0,0,20" Click="BackToMenu_Click"/>
+
                 <!-- Filtry tasków -->
                 <TextBlock Text="Filter Tasks" FontSize="22" FontWeight="Bold" Foreground="White" Margin="0,0,0,20"/>
 

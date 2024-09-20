@@ -1,7 +1,7 @@
 ﻿<Window x:Class="task_management_wpf.usercontrolpanel.AssignTaskView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Assign Task" Height="600" Width="800"
+        Title="Assign Task" Height="669" Width="840"
         Background="#2C3E50">
 
     <Grid Margin="10">
@@ -10,19 +10,23 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Lewa sekcja: formularz przypisania tasku -->
-        <!-- Opakowanie StackPanel w Border, aby dodać Padding -->
+        <!-- Left Section: Task Assignment Form -->
         <Border Grid.Column="0" Background="#34495e" Padding="15">
             <StackPanel HorizontalAlignment="Stretch" Margin="0">
+
+                <!-- Back to Menu Button -->
+                <Button Content="Back to Menu" Width="120" Background="#3498db" Foreground="White" HorizontalAlignment="Left" Margin="0,0,0,20" Click="BackToMenu_Click"/>
+
+                <!-- Assign Task Header -->
                 <TextBlock Text="Assign Task" FontSize="28" FontWeight="Bold" Foreground="White" Margin="0,20,0,10"/>
 
                 <!-- Task Title -->
                 <TextBlock Text="Task Title:" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,10,0,5"/>
-                <TextBox Text="Enter task title..." Foreground="Gray"/>
+                <TextBox x:Name="TaskTitleTextBox" Text="Enter task title..." Foreground="Gray"/>
 
                 <!-- Assign To -->
                 <TextBlock Text="Assign To:" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,20,0,5"/>
-                <ComboBox>
+                <ComboBox x:Name="AssignToComboBox">
                     <ComboBoxItem Content="User 1"/>
                     <ComboBoxItem Content="User 2"/>
                     <ComboBoxItem Content="User 3"/>
@@ -30,7 +34,7 @@
 
                 <!-- Task Priority -->
                 <TextBlock Text="Task Priority:" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,20,0,5"/>
-                <ComboBox>
+                <ComboBox x:Name="TaskPriorityComboBox">
                     <ComboBoxItem Content="Low"/>
                     <ComboBoxItem Content="Medium"/>
                     <ComboBoxItem Content="High"/>
@@ -38,21 +42,21 @@
 
                 <!-- Due Date -->
                 <TextBlock Text="Due Date:" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,20,0,5"/>
-                <DatePicker/>
+                <DatePicker x:Name="DueDatePicker"/>
 
                 <!-- Description -->
                 <TextBlock Text="Description:" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,20,0,5"/>
-                <TextBox AcceptsReturn="True" Height="100" Text="Enter task description..." Foreground="Gray"/>
+                <TextBox x:Name="DescriptionTextBox" AcceptsReturn="True" Height="100" Text="Enter task description..." Foreground="Gray"/>
 
-                <!-- Buttons -->
+                <!-- Buttons for Assign Task and Reset Form -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20,0,0">
-                    <Button Content="Assign Task" Width="120" Background="#9fe3ae" Margin="5"/>
-                    <Button Content="Reset Form" Width="120" Background="#e74c3c" Margin="10,5,0,0"/>
+                    <Button Content="Assign Task" Width="120" Background="#9fe3ae" Margin="5" Click="AssignTask_Click"/>
+                    <Button Content="Reset Form" Width="120" Background="#e74c3c" Margin="10,5,0,0" Click="ResetForm_Click"/>
                 </StackPanel>
             </StackPanel>
         </Border>
 
-        <!-- Prawa sekcja: dodatkowe informacje -->
+        <!-- Right Section: Additional Information -->
         <Border Grid.Column="1" Background="#ecf0f1" Padding="15">
             <StackPanel>
                 <TextBlock Text="Instructions" FontSize="24" FontWeight="Bold" Foreground="#2C3E50" Margin="10,10,0,10"/>

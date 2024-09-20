@@ -129,8 +129,26 @@ namespace task_management_wpf
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
         {
-            if(txtpassw.Password.Length != 0 && txtusername.Text.Length != 0) {
-                LogIn(txtusername.Text,txtpassw.Password);
+            string username = txtusername.Text;
+            string password = txtpassw.Password;
+
+            // Check if the username and password are "admin"
+            if (username == "admin" && password == "admin")
+            {
+                // Fully qualify your custom Menu class to avoid ambiguity
+                task_management_wpf.usercontrolpanel.Menu menuWindow = new task_management_wpf.usercontrolpanel.Menu();
+                menuWindow.Show();
+
+                // Close the current LogInWindow
+                this.Close();
+            }
+            else
+            {
+                // Proceed with regular login flow
+                if (password.Length != 0 && username.Length != 0)
+                {
+                    LogIn(username, password);
+                }
             }
         }
 

@@ -8,7 +8,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Left-side Logo Section -->
@@ -27,7 +27,7 @@
             </Grid>
 
             <!-- Logo Text -->
-            <TextBlock Margin="0,-80,0,0" Grid.Row="1" TextAlignment="Center" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White">
+            <TextBlock Margin="0,-80,0,0" TextAlignment="Center" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White">
                 <Run Text="KARA " Foreground="#9fe3ae"/>
                 <Run Text="KAMA" Foreground="#7fb58b"/>
             </TextBlock>
@@ -42,7 +42,7 @@
                     <Image Source="/path/to/user/photo.jpg" Stretch="UniformToFill" />
                 </Border>
 
-                <!-- Name Editing Section (without Click) -->
+                <!-- Name Editing Section -->
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <Border Width="300" CornerRadius="5" Background="White">
                         <TextBox Background="White" 
@@ -62,7 +62,7 @@
                             Foreground="White"/>
                 </StackPanel>
 
-                <!-- Email Editing Section (without Click) -->
+                <!-- Email Editing Section -->
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <Border Width="300" CornerRadius="5" Background="White">
                         <TextBox Background="White" 
@@ -82,7 +82,7 @@
                             Foreground="White"/>
                 </StackPanel>
 
-                <!-- Password Editing Section (without Click) -->
+                <!-- Password Editing Section -->
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <Border Width="300" CornerRadius="5" Background="White">
                         <PasswordBox Background="White" 
@@ -101,6 +101,15 @@
                             Background="#6e9777" 
                             Foreground="White"/>
                 </StackPanel>
+
+                <!-- Back to Menu Button -->
+                <Button Content="Back to Menu" 
+                        Width="120" 
+                        Height="40" 
+                        Margin="0,30,0,0" 
+                        Background="#9fe3ae" 
+                        Foreground="White" 
+                        HorizontalAlignment="Center" Click="Button_Click"/>
 
             </StackPanel>
         </Grid>
