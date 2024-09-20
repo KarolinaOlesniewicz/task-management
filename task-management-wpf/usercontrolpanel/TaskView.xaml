@@ -1,7 +1,7 @@
 ﻿<Window x:Class="task_management_wpf.usercontrolpanel.TaskView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Task View" Height="450" Width="800"
+        Title="Task View" Height="492" Width="816"
         Background="#2C3E50">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -9,14 +9,10 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!-- Pasek banera z opisem -->
-        <Grid Background="#2C3E50" Margin="0,0,0,20" Grid.ColumnSpan="2" Height="60">
-            <TextBlock Text="Manage your tasks" FontSize="24" FontWeight="Bold" Foreground="White" 
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Grid>
+     
 
         <!-- Lewa sekcja: filtry tasków -->
-        <StackPanel Grid.Column="0" Background="#2C3E50" HorizontalAlignment="Stretch">
+        <StackPanel Grid.Column="0" Background="#2C3E50">
             <!-- Filtry tasków -->
             <TextBlock Text="Filter Tasks" FontSize="20" FontWeight="Bold" Foreground="White" Margin="20,20,0,10"/>
 
