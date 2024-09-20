@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\dsds4\Source\Repos\task-management1\task-management-wpf\App.xaml
-7-857322515
+872983908
 
-121564778685
+132087777173
 199-637505042
-LogInWindow.xaml;MainWindow.xaml;Styles.xaml;usercontrolpanel\AssignTaskView.xaml;usercontrolpanel\singupControl.xaml;usercontrolpanel\TaskView.xaml;usercontrolpanel\UserProfile.xaml;
+LogInWindow.xaml;MainWindow.xaml;Styles.xaml;usercontrolpanel\AssignTaskView.xaml;usercontrolpanel\Menu.xaml;usercontrolpanel\singupControl.xaml;usercontrolpanel\TaskView.xaml;usercontrolpanel\UserProfile.xaml;
 
 False
 

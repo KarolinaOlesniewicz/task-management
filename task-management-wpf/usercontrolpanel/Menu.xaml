@@ -1,0 +1,20 @@
+﻿<Window x:Class="task_management_wpf.usercontrolpanel.Menu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Menu" Height="400" Width="300"
+        Background="#2C3E50">
+    <Grid Margin="10">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+            <!-- Button for Assign Task View -->
+            <Button Content="Assign Task" Width="200" Height="40" Background="#9fe3ae" Foreground="White" Click="OpenAssignTaskView_Click" Margin="0,0,0,20"/>
+
+            <!-- Button for User Profile View -->
+            <Button Content="User Profile" Width="200" Height="40" Background="#7fb58b" Foreground="White" Click="OpenUserProfileView_Click" Margin="0,0,0,20"/>
+
+            <!-- Button for Task View -->
+            <Button Content="Task View" Width="200" Height="40" Background="#6e9777" Foreground="White" Click="OpenTaskView_Click" Margin="0,0,0,20"/>
+
+        </StackPanel>
+    </Grid>
+</Window>

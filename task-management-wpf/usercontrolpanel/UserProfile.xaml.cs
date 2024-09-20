@@ -30,5 +30,20 @@ namespace task_management_wpf.usercontrolpanel
             txtPassword.IsEnabled = true; // Enable editing for the password field
             txtPassword.Focus();          // Set focus to the PasswordBox
         }
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Create a new instance of the Menu
+            var menu = new Menu(); // Use the correct name for your menu class
+            menu.Show(); // Show the menu
+
+            // Close the current window or user control (if needed)
+            var currentWindow = Window.GetWindow(this);
+            if (currentWindow != null)
+            {
+                currentWindow.Close(); // Close the current window
+            }
+        }
     }
 }
