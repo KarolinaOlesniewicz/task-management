@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\ProjektZesp\task-management-wpf\obj\Debug\net8.0-windows\
+C:\Users\dsds4\Source\Repos\task-management1\task-management-wpf\obj\Debug\net8.0-windows\
 task_management_wpf
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-D:\ProjektZesp\task-management-wpf\App.xaml
-4-1110155466
+C:\Users\dsds4\Source\Repos\task-management1\task-management-wpf\App.xaml
+7-857322515
 
-9-1227724459
-1992092355620
-LogInWindow.xaml;MainWindow.xaml;Styles.xaml;usercontrolpanel\singupControl.xaml;
+121564778685
+199-637505042
+LogInWindow.xaml;MainWindow.xaml;Styles.xaml;usercontrolpanel\AssignTaskView.xaml;usercontrolpanel\singupControl.xaml;usercontrolpanel\TaskView.xaml;usercontrolpanel\UserProfile.xaml;
 
 False
 
