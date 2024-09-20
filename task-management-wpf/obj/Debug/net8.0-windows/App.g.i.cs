@@ -59,7 +59,7 @@ namespace task_management_wpf {
             
             #line default
             #line hidden
-            System.Uri resourceLocater = new System.Uri("/task-management-wpf;V1.0.0.0;component/app.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/task-management-wpf;component/app.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\App.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

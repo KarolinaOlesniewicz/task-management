@@ -1,28 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace task_management_wpf.usercontrolpanel
 {
-    /// <summary>
-    /// Interaction logic for UserProfile.xaml
-    /// </summary>
-    public partial class UserProfile : Window
+    public partial class UsersProfile : UserControl
     {
-        public UserProfile()
+        public UsersProfile()
         {
-   
+            InitializeComponent();
+        }
 
+        // Event handler for EditName_Click
+        private void EditName_Click(object sender, RoutedEventArgs e)
+        {
+            txtName.IsReadOnly = false;   // Enable editing for the name field
+            txtName.Focus();              // Set focus to the name TextBox
+        }
+
+        // Event handler for EditEmail_Click
+        private void EditEmail_Click(object sender, RoutedEventArgs e)
+        {
+            txtEmail.IsReadOnly = false;  // Enable editing for the email field
+            txtEmail.Focus();             // Set focus to the email TextBox
+        }
+
+        // Event handler for EditPassword_Click
+        private void EditPassword_Click(object sender, RoutedEventArgs e)
+        {
+            txtPassword.IsEnabled = true; // Enable editing for the password field
+            txtPassword.Focus();          // Set focus to the PasswordBox
         }
     }
 }

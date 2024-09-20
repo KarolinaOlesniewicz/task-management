@@ -11,7 +11,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!-- Sekcja logo po lewej stronie -->
+        <!-- Left-side Logo Section -->
         <StackPanel Background="#2C3E50">
             <Grid Margin="0,60,0,100" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
@@ -20,29 +20,29 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Prostokąty logo -->
+                <!-- Logo Rectangles -->
                 <Rectangle Grid.Column="0" Fill="#9fe3ae" Margin="5,100,5,0" Width="50" Height="200" RadiusX="10" RadiusY="10" ClipToBounds="True"/>
                 <Rectangle Grid.Column="1" Fill="#7fb58b" Margin="5,50,5,0" Width="50" Height="150" RadiusX="10" RadiusY="10" ClipToBounds="True"/>
                 <Rectangle Grid.Column="2" Fill="#6e9777" Margin="5,0,5,0" Width="50" Height="100" RadiusX="10" RadiusY="10" ClipToBounds="True"/>
             </Grid>
 
-            <!-- Tekst Logo -->
+            <!-- Logo Text -->
             <TextBlock Margin="0,-80,0,0" Grid.Row="1" TextAlignment="Center" FontSize="40" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White">
                 <Run Text="KARA " Foreground="#9fe3ae"/>
                 <Run Text="KAMA" Foreground="#7fb58b"/>
             </TextBlock>
         </StackPanel>
 
-        <!-- Sekcja profilu po prawej stronie -->
+        <!-- Right-side Profile Section -->
         <Grid Grid.Column="1" Background="#ecf0f1">
             <StackPanel Margin="0,40,0,0" HorizontalAlignment="Center">
 
-                <!-- Miejsce na zdjęcie -->
+                <!-- Profile Picture -->
                 <Border Width="150" Height="150" Background="#9fe3ae" CornerRadius="75" Margin="0,0,0,20" HorizontalAlignment="Center">
                     <Image Source="/path/to/user/photo.jpg" Stretch="UniformToFill" />
                 </Border>
 
-                <!-- Edycja imienia i nazwiska -->
+                <!-- Name Editing Section (without Click) -->
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <Border Width="300" CornerRadius="5" Background="White">
                         <TextBox Background="White" 
@@ -59,11 +59,10 @@
                             Height="40" 
                             Margin="10,0,0,0" 
                             Background="#9fe3ae" 
-                            Foreground="White" 
-                            Click="EditName_Click"/>
+                            Foreground="White"/>
                 </StackPanel>
 
-                <!-- Edycja emaila -->
+                <!-- Email Editing Section (without Click) -->
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <Border Width="300" CornerRadius="5" Background="White">
                         <TextBox Background="White" 
@@ -80,11 +79,10 @@
                             Height="40" 
                             Margin="10,0,0,0" 
                             Background="#7fb58b" 
-                            Foreground="White" 
-                            Click="EditEmail_Click"/>
+                            Foreground="White"/>
                 </StackPanel>
 
-                <!-- Edycja hasła -->
+                <!-- Password Editing Section (without Click) -->
                 <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                     <Border Width="300" CornerRadius="5" Background="White">
                         <PasswordBox Background="White" 
@@ -101,8 +99,7 @@
                             Height="40" 
                             Margin="10,0,0,0" 
                             Background="#6e9777" 
-                            Foreground="White" 
-                            Click="EditPassword_Click"/>
+                            Foreground="White"/>
                 </StackPanel>
 
             </StackPanel>
