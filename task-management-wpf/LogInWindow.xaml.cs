@@ -1,41 +1,68 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using task_management_wpf.dtos;
-using task_management_wpf.usercontrolpanel;
+using Newtonsoft.Json;
+using task_management_wpf.usercontrolpanel; // Import przestrzeni nazw dla kontrolki rejestracji
 
 namespace task_management_wpf
 {
-    /// <summary>
-    /// Interaction logic for LogInWindow.xaml
-    /// </summary>
     public partial class LogInWindow : Window
     {
         public LogInWindow()
         {
             InitializeComponent();
-
+          
         }
 
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        private async void LogIn_Click(object sender, RoutedEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            var email = txtusername.Text; // Pobranie wartości z pola tekstowego username
+            var password = txtpassw.Password; // Pobranie wartości z PasswordBox
+
+            var result = await LogInAsync(email, password);
+            if (result)
             {
-                DragMove();
+                MessageBox.Show("Login successful!");
+               
+            }
+            else
+            {
+                MessageBox.Show("Invalid credentials, please try again.");
             }
         }
+
+        private async Task<bool> LogInAsync(string email, string password)
+        {
+            using (var client = new HttpClient())
+            {
+                var url = "http://localhost:5079/api/login";
+                var requestData = new { email, password };
+                var jsonContent = JsonConvert.SerializeObject(requestData);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(url, content);
+                return response.IsSuccessStatusCode;
+            }
+        }
+
+        private void txtusername_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            txtusernamePlaceholder.Visibility = string.IsNullOrWhiteSpace(txtusername.Text) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void passwChanged(object sender, RoutedEventArgs e)
+        {
+            txtpasswPlaceholder.Visibility = string.IsNullOrWhiteSpace(txtpassw.Password) ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void SignUp_click(object sender, RoutedEventArgs e)
+        {
+            // Ustawienie kontrolki rejestracji jako zawartość
+            MainContent.Content = new usercontrolpanel.singupControl();
+        }
+
         private void MinimalizeButton_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
@@ -43,119 +70,20 @@ namespace task_management_wpf
 
         private void MaximalizeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.WindowState != WindowState.Maximized)
-            {
-                this.WindowState = WindowState.Maximized;
-            }
-            else
-            {
-                this.WindowState = WindowState.Normal;
-            }
+            this.WindowState = this.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            this.Close();
         }
 
-        private void txtusername_TextChanged(Object sender, TextChangedEventArgs e)
-
+        private void Border_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
-            if (txtusername.Text != "")
+            if (e.ButtonState == System.Windows.Input.MouseButtonState.Pressed)
             {
-
-                txtusernamePlaceholder.Visibility = Visibility.Hidden;
-
+                this.DragMove();
             }
-            else
-            {
-
-                txtusernamePlaceholder.Visibility = Visibility.Visible;
-
-            }
-
-        }
-
-        private void passwChanged(object sender, RoutedEventArgs e)
-        {
-            if (txtpassw.Password.Length != 0)
-            {
-
-                txtpasswPlaceholder.Visibility= Visibility.Hidden;
-
-            }
-            else
-            {
-
-                txtpasswPlaceholder.Visibility = Visibility.Visible;
-
-            }
-        }
-
-        private async void LogIn(string username,string password)
-        {
-            string baseAddress = "http://localhost:5079";
-            string endpoint = "api/user/login";
-
-            LogInDto dto = new LogInDto(username, password);
-
-            var json = JsonConvert.SerializeObject(dto);
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(baseAddress);
-
-                try
-                {          
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    var response =  await client.PostAsync(endpoint, content);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        MainGrid.Children.Clear();
-                    }else
-                    {
-                        MessageBox.Show("1");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-
-        private void LogIn_Click(object sender, RoutedEventArgs e)
-        {
-            string username = txtusername.Text;
-            string password = txtpassw.Password;
-
-            // Check if the username and password are "admin"
-            if (username == "admin" && password == "admin")
-            {
-                // Fully qualify your custom Menu class to avoid ambiguity
-                task_management_wpf.usercontrolpanel.Menu menuWindow = new task_management_wpf.usercontrolpanel.Menu();
-                menuWindow.Show();
-
-                // Close the current LogInWindow
-                this.Close();
-            }
-            else
-            {
-                // Proceed with regular login flow
-                if (password.Length != 0 && username.Length != 0)
-                {
-                    LogIn(username, password);
-                }
-            }
-        }
-
-        private void SignUp_click(object sender, RoutedEventArgs e)
-        {
-            MainGrid.Children.Clear();
-            MainGrid.Children.Add(new singupControl(this));
         }
     }
 }
